@@ -5,11 +5,10 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
-
-import { Entypo } from '@expo/vector-icons';
+import HomesScreen from '../screens/HomesScreen';
+import ChatsScreen from '../screens/ChatsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import { BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -18,25 +17,25 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Homes"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, showLabel: false }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Homes"
+        component={HomesNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />        
       <BottomTab.Screen
-        name="Chat"
-        component={TabTwoNavigator}
+        name="Chats"
+        component={ChatsNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="chatbubbles" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Profile"
-        component={TabTwoNavigator}
+        component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="person-circle" color={color} />,
         }}
@@ -53,44 +52,44 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomesStack = createStackNavigator<HomesParamList>();
 
-function TabOneNavigator() {
+function HomesNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+    <HomesStack.Navigator>
+      <HomesStack.Screen
+        name="HomesScreen"
+        component={HomesScreen}
         options={{ headerTitle: 'Find a home' }}
       />
-    </TabOneStack.Navigator>
+    </HomesStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const ChatsStack = createStackNavigator<ChatsParamList>();
 
-function TabTwoNavigator() {
+function ChatsNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
+    <ChatsStack.Navigator>
+      <ChatsStack.Screen
+        name="ChatsScreen"
+        component={ChatsScreen}
         options={{ headerTitle: 'Chats' }}
       />
-    </TabTwoStack.Navigator>
+    </ChatsStack.Navigator>
   );
 }
 
-const TabThreeStack = createStackNavigator<TabThreeParamList>();
+const ProfileStack = createStackNavigator<ProfileParamList>();
 
-function TabThreeNavigator() {
+function ProfileNavigator() {
   return (
-    <TabThreeStack.Navigator>
-      <TabThreeStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Chats 2' }}
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{ headerTitle: 'Profile' }}
       />
-    </TabThreeStack.Navigator>
+    </ProfileStack.Navigator>
   );
 }
