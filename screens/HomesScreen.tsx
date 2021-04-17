@@ -12,14 +12,14 @@ export default class HomeScreen extends Component {
   // const [location, setLocation] = useState<any | null>(null);
 
   state = {
-      data: [],
-      loading: true,
+data: [],
+loading: true,
 positionState: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0
-    },
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0,
+    longitudeDelta: 0
+},
     }
     
     componentDidMount() {
