@@ -7,8 +7,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts --ext .tsx",
+    "lint-fix": "eslint . --ext .ts --ext .tsx --fix"
   },
   "jest": {
     "preset": "jest-expo"
@@ -50,6 +50,7 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jest-expo": "~41.0.0",
+    "prettier": "2.2.1",
     "typescript": "~4.2.4"
   },
   "private": true

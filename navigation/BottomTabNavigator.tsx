@@ -8,41 +8,9 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomesScreen from '../screens/HomesScreen';
 import ChatsScreen from '../screens/ChatsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import { BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList } from '../types';
-
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
-
-export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <BottomTab.Navigator
-      initialRouteName="Homes"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, showLabel: false }}>
-      <BottomTab.Screen
-        name="Homes"
-        component={HomesNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        }}
-      />        
-      <BottomTab.Screen
-        name="Chats"
-        component={ChatsNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="chatbubbles" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Profile"
-        component={ProfileNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="person-circle" color={color} />,
-        }}
-      />      
-    </BottomTab.Navigator>
-  );
-}
+import {
+  BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList,
+} from '../types';
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
@@ -91,5 +59,40 @@ function ProfileNavigator() {
         options={{ headerTitle: 'Profile' }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+
+export default function BottomTabNavigator() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <BottomTab.Navigator
+      initialRouteName="Homes"
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, showLabel: false }}
+    >
+      <BottomTab.Screen
+        name="Homes"
+        component={HomesNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Chats"
+        component={ChatsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="chatbubbles" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="person-circle" color={color} />,
+        }}
+      />
+    </BottomTab.Navigator>
   );
 }
