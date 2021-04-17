@@ -1,35 +1,6 @@
 import * as React from 'react';
 import { FlatList, StyleSheet, Dimensions } from 'react-native';
-import MapView from 'react-native-maps';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View, } from '../components/Themed';
-
-export default function ChatsScreen() {
-  return (
-    <View style={styles.container}>
-      <FlatList
-          data={[
-            { key: 'Devin' },
-            { key: 'Dan' },
-            { key: 'Dominic' },
-            { key: 'Jackson' },
-            { key: 'James' },
-            { key: 'Joel' },
-            { key: 'John' },
-            { key: 'Jillian' },
-            { key: 'Jimmy' },
-            { key: 'Julie' },
-          ]}
-          renderItem={({ item }) => (
-            <View>
-              <Text style={styles.item}>{item.key}</Text>
-            </View>
-          )}
-        />
-    </View>
-  );
-}
+import { Text, View } from '../components/Themed';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,3 +26,29 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+export default function ChatsScreen() {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={[
+          { key: 'Devin' },
+          { key: 'Dan' },
+          { key: 'Dominic' },
+          { key: 'Jackson' },
+          { key: 'James' },
+          { key: 'Joel' },
+          { key: 'John' },
+          { key: 'Jillian' },
+          { key: 'Jimmy' },
+          { key: 'Julie' },
+        ]}
+        renderItem={({ item }) => (
+          <View>
+            <Text style={styles.item}>{item.key}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
