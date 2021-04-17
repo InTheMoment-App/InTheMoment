@@ -13,13 +13,15 @@ export default function useCachedResources() {
         SplashScreen.preventAutoHideAsync();
 
         // Load fonts
+        /* eslint-disable global-require */
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
         });
+        /* eslint-enable global-require */
       } catch (e) {
         // We might want to provide this error information to an error reporting service
-        console.warn(e);
+        // console.warn(e);
       } finally {
         setLoadingComplete(true);
         SplashScreen.hideAsync();
