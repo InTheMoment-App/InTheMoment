@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import {
-    StyleSheet, Dimensions, ActivityIndicator, TextInput,
+    StyleSheet, Dimensions, ActivityIndicator, TextInput, TouchableOpacity,
 } from 'react-native';
 import * as Location from 'expo-location';
+import { Feather } from '@expo/vector-icons';
 import { View } from '../components/Themed';
 
 const { width, height } = Dimensions.get('window');
@@ -14,8 +15,9 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
     },
     map: {
         width: Dimensions.get('window').width,
@@ -60,6 +62,18 @@ const styles = StyleSheet.create({
         height: 45,
         paddingHorizontal: 10,
         fontSize: 18,
+    },
+    centerMapButton: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        overflow: 'hidden',
+        elevation: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 8,
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: -300,
+        right: 15,
     },
 });
 
@@ -167,6 +181,14 @@ export default class HomeScreen extends Component<MapProps, MapState> {
                         placeholderTextColor="#666"
                     />
                 </View>
+                <TouchableOpacity onPress={() => this.getLocationAsync()}>
+                    <Feather
+                        name="navigation"
+                        size={24}
+                        color="#007AFF"
+                        style={styles.centerMapButton}
+                    />
+                </TouchableOpacity>
             </>
         )}
                 {this.state.loading
