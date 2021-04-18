@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import {
-    StyleSheet, Dimensions, ActivityIndicator, TextInput, TouchableOpacity,
+    StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
+import { Searchbar } from 'react-native-paper';
 import { View } from '../components/Themed';
 
 const { width, height } = Dimensions.get('window');
@@ -52,16 +53,10 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: '#007AFF',
     },
-    searchbar: {
-        borderRadius: 10,
-        margin: 0,
-        color: '#000',
-        borderColor: '#666',
-        backgroundColor: '#FFF',
-        borderWidth: 1,
-        height: 45,
-        paddingHorizontal: 10,
-        fontSize: 18,
+    searchbarContainer: {
+        position: 'absolute',
+        width: '100%',
+        top: 0,
     },
     centerMapButton: {
         backgroundColor: 'white',
@@ -80,6 +75,7 @@ const styles = StyleSheet.create({
 type MapProps = {};
 
 type MapState = {
+  searchQuery: string,
   loading: boolean,
   loadingMap: boolean,
   updatedRegion: boolean,
@@ -91,6 +87,7 @@ export default class HomeScreen extends Component<MapProps, MapState> {
     constructor(props: MapProps) {
         super(props);
         this.state = {
+            searchQuery: '',
             loading: true,
             loadingMap: false,
             updatedRegion: false,
@@ -121,6 +118,10 @@ export default class HomeScreen extends Component<MapProps, MapState> {
     onRegionChange = (region: any) => {
         this.setState({ region });
         // this.mapView.animateToRegion(region, 200);
+    }
+
+    onSearchChange = (query: string) => {
+        this.setState({ searchQuery: query });
     }
 
     getLocationAsync = async () => {
@@ -174,11 +175,11 @@ export default class HomeScreen extends Component<MapProps, MapState> {
                         </View>
                     </Marker>
                 </MapView>
-                <View style={{ position: 'absolute', top: 10, width: '100%' }}>
-                    <TextInput
-                        style={styles.searchbar}
+                <View style={styles.searchbarContainer}>
+                    <Searchbar
                         placeholder="Enter a location"
-                        placeholderTextColor="#666"
+                        value={this.state.searchQuery}
+                        onChangeText={this.onSearchChange}
                     />
                 </View>
                 <TouchableOpacity onPress={() => this.getLocationAsync()}>
