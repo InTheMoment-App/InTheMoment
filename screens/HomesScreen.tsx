@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import {
-    StyleSheet, Dimensions, ActivityIndicator, TextInput, TouchableOpacity
+    StyleSheet, Dimensions, ActivityIndicator, TextInput, TouchableOpacity,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     map: {
         width: Dimensions.get('window').width,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         fontSize: 18,
     },
-    centerMapButton : {
+    centerMapButton: {
         backgroundColor: 'white',
         borderRadius: 10,
         overflow: 'hidden',
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         position: 'absolute',
         bottom: -300,
-        right: 15
-    }
+        right: 15,
+    },
 });
 
 type MapProps = {};
@@ -120,7 +120,7 @@ export default class HomeScreen extends Component<MapProps, MapState> {
 
     onRegionChange = (region: any) => {
         this.setState({ region });
-        //this.mapView.animateToRegion(region, 200);
+        // this.mapView.animateToRegion(region, 200);
     }
 
     getLocationAsync = async () => {
@@ -181,12 +181,13 @@ export default class HomeScreen extends Component<MapProps, MapState> {
                         placeholderTextColor="#666"
                     />
                 </View>
-                <TouchableOpacity onPress={() => this.getLocationAsync() }>
-                    <Feather 
-                        name="navigation" 
-                        size={24} 
-                        color="#007AFF" 
-                        style={styles.centerMapButton}/>
+                <TouchableOpacity onPress={() => this.getLocationAsync()}>
+                    <Feather
+                        name="navigation"
+                        size={24}
+                        color="#007AFF"
+                        style={styles.centerMapButton}
+                    />
                 </TouchableOpacity>
             </>
         )}
