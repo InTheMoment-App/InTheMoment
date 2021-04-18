@@ -74,21 +74,24 @@ type MapState = {
 };
 
 export default class HomeScreen extends Component<MapProps, MapState> {
-    public readonly state: MapState = {
-        loading: true,
-        loadingMap: false,
-        updatedRegion: false,
-        markerPosition: {
-            latitude: 0,
-            longitude: 0,
-        },
-        region: {
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        },
-    };
+    constructor(props: MapProps) {
+        super(props);
+        this.state = {
+            loading: true,
+            loadingMap: false,
+            updatedRegion: false,
+            markerPosition: {
+                latitude: 0,
+                longitude: 0,
+            },
+            region: {
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            },
+        };
+    }
 
     async componentDidMount() {
         await this.getLocationAsync();
@@ -96,9 +99,8 @@ export default class HomeScreen extends Component<MapProps, MapState> {
     }
 
     componentDidUpdate() {
-        if (this.state.updatedRegion) {
-            this.state.loadingMap = true;
-            this.state.loading = false;
+        if (this.state.updatedRegion && this.state.loading) {
+            this.updateLoading();
         }
     }
 
@@ -131,6 +133,13 @@ export default class HomeScreen extends Component<MapProps, MapState> {
             markerPosition: region,
         });
     };
+
+    updateLoading() {
+        this.setState({
+            loadingMap: true,
+            loading: false,
+        });
+    }
 
     render() {
         return (
