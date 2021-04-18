@@ -20,4 +20,4 @@ jobs:
         run: npm ci
 
       - name: Run Linter
-        run: eslint . --ext .ts --ext .tsx
+        run: npx eslint . --ext .ts --ext .tsx
