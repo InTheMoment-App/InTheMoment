@@ -1,24 +1,24 @@
 import * as Linking from 'expo-linking';
 
 export default {
-  prefixes: [Linking.makeUrl('/')],
-  config: {
-    screens: {
-      Root: {
+    prefixes: [Linking.makeUrl('/')],
+    config: {
         screens: {
-          Homes: {
-            screens: {
-              HomesScreen: 'one',
+            Root: {
+                screens: {
+                    Homes: {
+                        screens: {
+                            HomesScreen: 'one',
+                        },
+                    },
+                    Chats: {
+                        screens: {
+                            ChatsScreen: 'two',
+                        },
+                    },
+                },
             },
-          },
-          Chats: {
-            screens: {
-              ChatsScreen: 'two',
-            },
-          },
+            NotFound: '*',
         },
-      },
-      NotFound: '*',
     },
-  },
 };
