@@ -20,6 +20,4 @@ jobs:
         run: npm ci
 
       - name: Run Linter
-        uses: wearerequired/lint-action@v1.9.0
-        with:
-          eslint: true
+        run: eslint . --ext .ts --ext .tsx
