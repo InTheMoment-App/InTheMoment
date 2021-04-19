@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TenantFinder",
-    "slug": "TenantFinder",
+    "name": "InTheMoment",
+    "slug": "InTheMoment",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

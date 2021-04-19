@@ -8,8 +8,9 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomesScreen from '../screens/HomesScreen';
 import ChatsScreen from '../screens/ChatsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import DiscoverScreen from '../screens/DiscoverScreen';
 import {
-    BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList,
+    BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
 // You can explore the built-in icon families and icons on the web at:
@@ -28,9 +29,23 @@ function HomesNavigator() {
             <HomesStack.Screen
                 name="HomesScreen"
                 component={HomesScreen}
-                options={{ headerTitle: 'Find a home' }}
+                options={{ headerTitle: 'Find a home', headerTitleAlign: 'left' }}
             />
         </HomesStack.Navigator>
+    );
+}
+
+const DiscoverStack = createStackNavigator<DiscoverParamList>();
+
+function DiscoverNavigator() {
+    return (
+        <DiscoverStack.Navigator>
+            <DiscoverStack.Screen
+                name="DiscoverScreen"
+                component={DiscoverScreen}
+                options={{ headerTitle: 'Discover', headerTitleAlign: 'left' }}
+            />
+        </DiscoverStack.Navigator>
     );
 }
 
@@ -42,7 +57,7 @@ function ChatsNavigator() {
             <ChatsStack.Screen
                 name="ChatsScreen"
                 component={ChatsScreen}
-                options={{ headerTitle: 'Chats' }}
+                options={{ headerTitle: 'Chats', headerTitleAlign: 'left' }}
             />
         </ChatsStack.Navigator>
     );
@@ -56,7 +71,7 @@ function ProfileNavigator() {
             <ProfileStack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}
-                options={{ headerTitle: 'Profile' }}
+                options={{ headerTitle: 'Profile', headerTitleAlign: 'left' }}
             />
         </ProfileStack.Navigator>
     );
@@ -77,6 +92,13 @@ export default function BottomTabNavigator() {
                 component={HomesNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Compass"
+                component={DiscoverNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
                 }}
             />
             <BottomTab.Screen
