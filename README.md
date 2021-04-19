@@ -6,5 +6,5 @@ they are not liked within a certain period of time.
 1. Ensure you have [expo](https://docs.expo.io/) installed
 2. Run `npm install`
 3. Download expo go
-3. Run `expo start`
+4. Run `expo start`
 
