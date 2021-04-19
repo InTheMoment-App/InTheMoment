@@ -11,9 +11,19 @@ export default {
                             HomesScreen: 'one',
                         },
                     },
+                    Discover: {
+                        screens: {
+                            DiscoverScreen: 'two',
+                        },
+                    },
                     Chats: {
                         screens: {
-                            ChatsScreen: 'two',
+                            ChatsScreen: 'three',
+                        },
+                    },
+                    Profile: {
+                        screens: {
+                            ProfileScreen: 'four',
                         },
                     },
                 },

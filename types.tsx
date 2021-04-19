@@ -13,6 +13,10 @@ export type HomesParamList = {
   HomesScreen: undefined;
 };
 
+export type DiscoverParamList = {
+  DiscoverScreen: undefined;
+}
+
 export type ChatsParamList = {
   ChatsScreen: undefined;
 };
