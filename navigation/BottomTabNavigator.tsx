@@ -13,6 +13,8 @@ import {
     BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
+import I18n from '../translations/Translate';
+
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
@@ -95,7 +97,7 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Discover"
+                name={I18n.t('discover')}
                 component={DiscoverNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
