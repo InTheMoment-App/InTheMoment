@@ -95,7 +95,7 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Compass"
+                name="Discover"
                 component={DiscoverNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
