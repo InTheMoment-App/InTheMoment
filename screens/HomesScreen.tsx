@@ -16,13 +16,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
     },
     loading: {
         position: 'absolute',

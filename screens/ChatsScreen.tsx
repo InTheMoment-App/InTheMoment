@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
     rightStyle: {
         marginRight: 20,
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
 });
 
 export default function ChatsScreen() {
