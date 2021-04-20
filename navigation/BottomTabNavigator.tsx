@@ -13,7 +13,7 @@ import {
     BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
-import I18n from '../translations/Translate';
+import i18n from '../translations/Translate';
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
@@ -45,7 +45,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen
                 name="DiscoverScreen"
                 component={DiscoverScreen}
-                options={{ headerTitle: 'Discover', headerTitleAlign: 'left' }}
+                options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
             />
         </DiscoverStack.Navigator>
     );
@@ -73,7 +73,7 @@ function ProfileNavigator() {
             <ProfileStack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}
-                options={{ headerTitle: 'Profile', headerTitleAlign: 'left' }}
+                options={{ headerTitle: i18n.t('profile'), headerTitleAlign: 'left' }}
             />
         </ProfileStack.Navigator>
     );
@@ -97,7 +97,7 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name={I18n.t('discover')}
+                name="Discover"
                 component={DiscoverNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
