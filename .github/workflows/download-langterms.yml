@@ -29,7 +29,7 @@ jobs:
           CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
           URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
           git remote set-url origin $URL
-          git push origin $GITHUB_REF
+          git push --force origin $GITHUB_REF
         env:
           UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
           COMMIT_USERNAME: github-actions[bot]
