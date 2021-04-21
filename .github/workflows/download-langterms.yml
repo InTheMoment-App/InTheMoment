@@ -26,18 +26,17 @@ jobs:
       - name: Push commit
         if: steps.changes.outputs.exist
         run: |
-          BRANCH= ${{ steps.extract_branch.outputs.branch }}
           git config user.name $COMMIT_USERNAME
           git config user.email $COMMIT_EMAIL
-          git checkout $BRANCH
+          git checkout ${{ steps.extract_branch.outputs.branch }}
           git add translations/locales/*.json
           git commit -m "Updating multi-language translations."
           CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
           URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
           git remote set-url origin $URL
-          echo "Pushing to $BRANCH"
-          git push --force origin $BRANCH
-          echo "Pushed to $BRANCH"
+          echo "Pushing to ${{ steps.extract_branch.outputs.branch }}"
+          git push --force origin ${{ steps.extract_branch.outputs.branch }}
+          echo "Pushed to ${{ steps.extract_branch.outputs.branch }}"
         env:
           UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
           COMMIT_USERNAME: github-actions[bot]
