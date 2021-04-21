@@ -1,21 +1,43 @@
 name: Download Translations
 on: 
   push:
-    tags:
-    - 'v*'
+    paths: 
+      - 'translations/locales/en.json'
 
 jobs:
-  localazy-download-test:
+  localazy-download-langterms:
     name: Download strings from Localazy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: localazy/download@v1
+      - name: Download langterms
+        uses: localazy/download@v1
         with:
           read_key: ${{ secrets.LOCALAZY_READ_KEY }}
           write_key: ${{ secrets.LOCALAZY_WRITE_KEY }}
-
-      - run: |
-          # Test that localized files were downloaded by listing 
-          # the content of locales folder.
-          ls translations/locales/*.json
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --exit-code LICENSE || echo "::set-output name=exist::true"
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Push commit
+        if: steps.changes.outputs.exist
+        run: |
+          git config user.name $COMMIT_USERNAME
+          git config user.email $COMMIT_EMAIL
+          git checkout ${{ steps.extract_branch.outputs.branch }}
+          git add translations/locales/*.json
+          git commit -m "Updating multi-language translations."
+          CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
+          URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
+          git remote set-url origin $URL
+          echo "Pushing to ${{ steps.extract_branch.outputs.branch }}"
+          git push --force origin ${{ steps.extract_branch.outputs.branch }}
+          echo "Pushed to ${{ steps.extract_branch.outputs.branch }}"
+        env:
+          UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          COMMIT_USERNAME: github-actions[bot]
+          COMMIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
