@@ -1,8 +1,8 @@
 name: Download Translations
 on: 
   push:
-    tags:
-    - 'v*'
+    paths: 
+      - 'translations/locales/en.json'
 
 jobs:
   localazy-download-langterms:
@@ -21,12 +21,12 @@ jobs:
           git diff --exit-code LICENSE || echo "::set-output name=exist::true"
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Push commit
         if: steps.changes.outputs.exist
         run: |
-          BRANCH= ${{GITHUB_HEAD_REF}}
+          BRANCH= ${{ steps.extract_branch.outputs.branch }}
           git config user.name $COMMIT_USERNAME
           git config user.email $COMMIT_EMAIL
           git checkout $BRANCH
