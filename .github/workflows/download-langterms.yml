@@ -5,17 +5,31 @@ on:
     - 'v*'
 
 jobs:
-  localazy-download-test:
+  localazy-download-langterms:
     name: Download strings from Localazy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: localazy/download@v1
+      - name: Download langterms
+        uses: localazy/download@v1
         with:
           read_key: ${{ secrets.LOCALAZY_READ_KEY }}
           write_key: ${{ secrets.LOCALAZY_WRITE_KEY }}
-
-      - run: |
-          # Test that localized files were downloaded by listing 
-          # the content of locales folder.
-          ls translations/locales/*.json
+      - name: Check for changes
+        id: changes
+        run: git diff --exit-code translations/locales/*.json || echo '::set-output name=exist::true'
+      - name: Push commit
+        if: steps.changes.outputs.exist
+        run: |
+          git config user.name $COMMIT_USERNAME
+          git config user.email $COMMIT_EMAIL
+          git add translations/locales/*.json
+          git commit -m "Updating multi-language translations."
+          CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
+          URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
+          git remote set-url origin $URL
+          git push origin $GITHUB_REF
+        env:
+          UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          COMMIT_USERNAME: github-actions[bot]
+          COMMIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
