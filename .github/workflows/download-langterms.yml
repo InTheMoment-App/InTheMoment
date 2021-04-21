@@ -24,12 +24,15 @@ jobs:
         run: |
           git config user.name $COMMIT_USERNAME
           git config user.email $COMMIT_EMAIL
+          git checkout -b $GITHUB_REF
           git add translations/locales/*.json
           git commit -m "Updating multi-language translations."
           CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
           URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
           git remote set-url origin $URL
+          echo "Pushing to $GITHUB_REF"
           git push --force origin $GITHUB_REF
+          echo "Pushed to $GITHUB_REF"
         env:
           UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
           COMMIT_USERNAME: github-actions[bot]
