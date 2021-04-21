@@ -26,7 +26,7 @@ jobs:
       - name: Push commit
         if: steps.changes.outputs.exist
         run: |
-          BRANCH= $GITHUB_HEAD_REF
+          BRANCH= ${{GITHUB_HEAD_REF}}
           git config user.name $COMMIT_USERNAME
           git config user.email $COMMIT_EMAIL
           git checkout $BRANCH
