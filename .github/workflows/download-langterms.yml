@@ -19,20 +19,25 @@ jobs:
         id: changes
         run: |
           git diff --exit-code LICENSE || echo "::set-output name=exist::true"
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Push commit
         if: steps.changes.outputs.exist
         run: |
+          BRANCH = ${{ steps.extract_branch.outputs.branch }}
           git config user.name $COMMIT_USERNAME
           git config user.email $COMMIT_EMAIL
-          git checkout -b $GITHUB_REF
+          git checkout $BRANCH
           git add translations/locales/*.json
           git commit -m "Updating multi-language translations."
           CREDENTIALS="x-access-token:$UPDATE_LANGTERMS_TOKEN"
           URL="https://$CREDENTIALS@github.com/${{github.repository}}.git"
           git remote set-url origin $URL
-          echo "Pushing to $GITHUB_REF"
-          git push --force origin $GITHUB_REF
-          echo "Pushed to $GITHUB_REF"
+          echo "Pushing to $BRANCH"
+          git push --force origin $BRANCH
+          echo "Pushed to $BRANCH"
         env:
           UPDATE_LANGTERMS_TOKEN: ${{secrets.GITHUB_TOKEN}}
           COMMIT_USERNAME: github-actions[bot]
