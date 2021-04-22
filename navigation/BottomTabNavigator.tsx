@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { CardStyleInterpolators, createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
@@ -18,7 +18,7 @@ import i18n from '../translations/Translate';
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-    return <Ionicons size={25} style={{ marginBottom: -3 }} {...props} />;
+    return <Ionicons size={26} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -41,13 +41,31 @@ const DiscoverStack = createStackNavigator<DiscoverParamList>();
 
 function DiscoverNavigator() {
     return (
-        <DiscoverStack.Navigator>
+        <DiscoverStack.Navigator
+            screenOptions={{ gestureEnabled: true, ...TransitionPresets.SlideFromRightIOS}}
+        >
             <DiscoverStack.Screen
                 name="DiscoverScreen"
                 component={DiscoverScreen}
                 options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
             />
         </DiscoverStack.Navigator>
+    );
+}
+
+const PostStack = createStackNavigator<DiscoverParamList>();
+
+function PostNavigator() {
+    return (
+        <PostStack.Navigator     screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+          }}>
+            <PostStack.Screen
+                name="DiscoverScreen"
+                component={DiscoverScreen}
+                options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
+            />
+        </PostStack.Navigator>
     );
 }
 
@@ -79,7 +97,7 @@ function ProfileNavigator() {
     );
 }
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
@@ -87,7 +105,9 @@ export default function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
             initialRouteName="Homes"
-            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, showLabel: false }}
+            // tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+            shifting={false}
+            sceneAnimationEnabled={true}
         >
             <BottomTab.Screen
                 name="Homes"
@@ -103,6 +123,13 @@ export default function BottomTabNavigator() {
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
                 }}
             />
+            <BottomTab.Screen
+                name="Post"
+                component={PostNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
+                }}
+            />            
             <BottomTab.Screen
                 name="Chats"
                 component={ChatsNavigator}
