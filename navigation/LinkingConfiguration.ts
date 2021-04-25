@@ -6,9 +6,9 @@ export default {
         screens: {
             Root: {
                 screens: {
-                    Homes: {
+                    Home: {
                         screens: {
-                            HomesScreen: 'one',
+                            HomeScreen: 'one',
                         },
                     },
                     Discover: {

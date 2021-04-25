@@ -5,12 +5,12 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import HomesScreen from '../screens/HomesScreen';
+import HomeScreen from '../screens/HomeScreen';
 import ChatsScreen from '../screens/ChatsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import {
-    BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
+    BottomTabParamList, HomeParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
 import i18n from '../translations/Translate';
@@ -18,22 +18,22 @@ import i18n from '../translations/Translate';
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-    return <Ionicons size={25} style={{ marginBottom: -3 }} {...props} />;
+    return <Ionicons size={26} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const HomesStack = createStackNavigator<HomesParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function HomesNavigator() {
+function HomeNavigator() {
     return (
-        <HomesStack.Navigator>
-            <HomesStack.Screen
-                name="HomesScreen"
-                component={HomesScreen}
-                options={{ headerTitle: 'Find a home', headerTitleAlign: 'left' }}
+        <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{ headerTitle: 'Home', headerTitleAlign: 'left' }}
             />
-        </HomesStack.Navigator>
+        </HomeStack.Navigator>
     );
 }
 
@@ -48,6 +48,20 @@ function DiscoverNavigator() {
                 options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
             />
         </DiscoverStack.Navigator>
+    );
+}
+
+const PostStack = createStackNavigator<DiscoverParamList>();
+
+function PostNavigator() {
+    return (
+        <PostStack.Navigator>
+            <PostStack.Screen
+                name="DiscoverScreen"
+                component={DiscoverScreen}
+                options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
+            />
+        </PostStack.Navigator>
     );
 }
 
@@ -86,12 +100,15 @@ export default function BottomTabNavigator() {
 
     return (
         <BottomTab.Navigator
-            initialRouteName="Homes"
-            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint, showLabel: false }}
+            initialRouteName="Home"
+            tabBarOptions={{
+                activeTintColor: Colors[colorScheme].tint,
+                showLabel: false,
+            }}
         >
             <BottomTab.Screen
-                name="Homes"
-                component={HomesNavigator}
+                name="Home"
+                component={HomeNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
                 }}
@@ -101,6 +118,13 @@ export default function BottomTabNavigator() {
                 component={DiscoverNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Post"
+                component={PostNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
                 }}
             />
             <BottomTab.Screen

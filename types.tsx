@@ -4,14 +4,15 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  Homes: undefined;
+  Home: undefined;
   Discover: undefined;
+  Post: undefined;
   Chats: undefined;
   Profile: undefined;
 };
 
-export type HomesParamList = {
-  HomesScreen: undefined;
+export type HomeParamList = {
+  HomeScreen: undefined;
 };
 
 export type DiscoverParamList = {
