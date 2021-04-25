@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ChatsScreen from '../screens/ChatsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
+import CameraScreen from '../screens/CameraScreen';
 import {
     BottomTabParamList, HomeParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
@@ -51,17 +52,17 @@ function DiscoverNavigator() {
     );
 }
 
-const PostStack = createStackNavigator<DiscoverParamList>();
+const CameraStack = createStackNavigator<DiscoverParamList>();
 
-function PostNavigator() {
+function CameraNavigator() {
     return (
-        <PostStack.Navigator>
-            <PostStack.Screen
-                name="DiscoverScreen"
-                component={DiscoverScreen}
-                options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
+        <CameraStack.Navigator>
+            <CameraStack.Screen
+                name="CameraScreen"
+                component={CameraScreen}
+                options={{ headerShown: false }}
             />
-        </PostStack.Navigator>
+        </CameraStack.Navigator>
     );
 }
 
@@ -121,8 +122,8 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Post"
-                component={PostNavigator}
+                name="Camera"
+                component={CameraNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
                 }}
