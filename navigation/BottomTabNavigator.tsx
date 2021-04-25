@@ -1,16 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { CardStyleInterpolators, createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import HomesScreen from '../screens/HomesScreen';
+import HomeScreen from '../screens/HomeScreen';
 import ChatsScreen from '../screens/ChatsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import {
-    BottomTabParamList, HomesParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
+    BottomTabParamList, HomeParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
 import i18n from '../translations/Translate';
@@ -23,17 +23,17 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const HomesStack = createStackNavigator<HomesParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function HomesNavigator() {
+function HomeNavigator() {
     return (
-        <HomesStack.Navigator>
-            <HomesStack.Screen
-                name="HomesScreen"
-                component={HomesScreen}
-                options={{ headerTitle: 'Find a home', headerTitleAlign: 'left' }}
+        <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{ headerTitle: 'Home', headerTitleAlign: 'left' }}
             />
-        </HomesStack.Navigator>
+        </HomeStack.Navigator>
     );
 }
 
@@ -41,9 +41,7 @@ const DiscoverStack = createStackNavigator<DiscoverParamList>();
 
 function DiscoverNavigator() {
     return (
-        <DiscoverStack.Navigator
-            screenOptions={{ gestureEnabled: true, ...TransitionPresets.SlideFromRightIOS}}
-        >
+        <DiscoverStack.Navigator>
             <DiscoverStack.Screen
                 name="DiscoverScreen"
                 component={DiscoverScreen}
@@ -57,9 +55,7 @@ const PostStack = createStackNavigator<DiscoverParamList>();
 
 function PostNavigator() {
     return (
-        <PostStack.Navigator     screenOptions={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-          }}>
+        <PostStack.Navigator>
             <PostStack.Screen
                 name="DiscoverScreen"
                 component={DiscoverScreen}
@@ -97,21 +93,22 @@ function ProfileNavigator() {
     );
 }
 
-const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
 
     return (
         <BottomTab.Navigator
-            initialRouteName="Homes"
-            // tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
-            shifting={false}
-            sceneAnimationEnabled={true}
+            initialRouteName="Home"
+            tabBarOptions={{
+                activeTintColor: Colors[colorScheme].tint,
+                showLabel: false,
+            }}
         >
             <BottomTab.Screen
-                name="Homes"
-                component={HomesNavigator}
+                name="Home"
+                component={HomeNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
                 }}
@@ -129,7 +126,7 @@ export default function BottomTabNavigator() {
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
                 }}
-            />            
+            />
             <BottomTab.Screen
                 name="Chats"
                 component={ChatsNavigator}
