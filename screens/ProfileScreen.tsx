@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 
+import { useQuery, gql } from '@apollo/client';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -21,6 +23,24 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileScreen() {
+    const EXCHANGE_RATES = gql`
+    query {
+        book(bookId: 2) {
+          id
+          title
+          author
+        }
+      }
+  `;
+
+  let testQuery = () => {
+      const { loading, error, data } = useQuery(EXCHANGE_RATES);
+      console.log(error);
+      console.log(data);
+  }
+
+  testQuery();
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Profile</Text>
