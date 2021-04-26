@@ -6,6 +6,9 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+import { ApolloProvider } from '@apollo/client/react'
+import client from './components/GraphQLService'
+
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
@@ -14,9 +17,11 @@ export default function App() {
         return null;
     }
     return (
-        <SafeAreaProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-        </SafeAreaProvider>
+        <ApolloProvider client={client}>
+            <SafeAreaProvider>
+                <Navigation colorScheme={colorScheme} />
+                <StatusBar />
+            </SafeAreaProvider>
+        </ApolloProvider>
     );
 }
