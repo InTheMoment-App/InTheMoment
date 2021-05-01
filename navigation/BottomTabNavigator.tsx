@@ -48,11 +48,11 @@ function DiscoverNavigator() {
     );
 }
 
-const CameraStack = createStackNavigator<DiscoverParamList>();
+ const CameraStack = createStackNavigator<DiscoverParamList>();
 
-function CameraNavigator() {
+function CameraNavigatorPlaceholder() {
     return (
-        <CameraStack.Navigator>
+        <CameraStack.Navigator mode="modal">
             <CameraStack.Screen
                 name="CameraScreen"
                 component={CameraScreen}
@@ -60,6 +60,7 @@ function CameraNavigator() {
             />
         </CameraStack.Navigator>
     );
+    // return ( null );
 }
 
 const LeaderboardStack = createStackNavigator<LeaderboardParamList>();
@@ -119,10 +120,16 @@ export default function BottomTabNavigator() {
             />
             <BottomTab.Screen
                 name="Camera"
-                component={CameraNavigator}
+                component={CameraNavigatorPlaceholder}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: e => {
+                        e.preventDefault();
+                        navigation.navigate( CameraScreen );
+                    }
+                })}
             />
             <BottomTab.Screen
                 name="Leaderboard"
