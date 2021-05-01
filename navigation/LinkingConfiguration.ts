@@ -16,9 +16,9 @@ export default {
                             DiscoverScreen: 'two',
                         },
                     },
-                    Chats: {
+                    Leaderboard: {
                         screens: {
-                            ChatsScreen: 'three',
+                            LeaderboardScreen: 'three',
                         },
                     },
                     Profile: {

@@ -6,24 +6,20 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
-import ChatsScreen from '../screens/ChatsScreen';
+import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import CameraScreen from '../screens/CameraScreen';
 import {
-    BottomTabParamList, HomeParamList, ChatsParamList, ProfileParamList, DiscoverParamList,
+    BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
 import i18n from '../translations/Translate';
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
     return <Ionicons size={26} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const HomeStack = createStackNavigator<HomeParamList>();
 
 function HomeNavigator() {
@@ -66,17 +62,17 @@ function CameraNavigator() {
     );
 }
 
-const ChatsStack = createStackNavigator<ChatsParamList>();
+const LeaderboardStack = createStackNavigator<LeaderboardParamList>();
 
-function ChatsNavigator() {
+function LeaderboardNavigator() {
     return (
-        <ChatsStack.Navigator>
-            <ChatsStack.Screen
-                name="ChatsScreen"
-                component={ChatsScreen}
-                options={{ headerTitle: 'Chats', headerTitleAlign: 'left' }}
+        <LeaderboardStack.Navigator>
+            <LeaderboardStack.Screen
+                name="LeaderboardScreen"
+                component={LeaderboardScreen}
+                options={{ headerTitle: 'Leaderboard', headerTitleAlign: 'left' }}
             />
-        </ChatsStack.Navigator>
+        </LeaderboardStack.Navigator>
     );
 }
 
@@ -129,10 +125,10 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Chats"
-                component={ChatsNavigator}
+                name="Leaderboard"
+                component={LeaderboardNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="chatbubbles" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="podium" color={color} />,
                 }}
             />
             <BottomTab.Screen

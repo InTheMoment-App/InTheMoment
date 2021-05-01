@@ -14,3 +14,8 @@ they are not liked within a certain period of time.
 2. Changes done to `en.json` will automatically be uploaded.
 3. ~~To fetch translations please tag a commit `git tag -a v* -m "tag message"`.~~
 4. Translations will automatically be downloaded after that.
+
+## Useful Links
+- [Available Icons](https://icons.expo.fyi/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [React Navigation](https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab)
