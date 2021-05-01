@@ -18,4 +18,4 @@ they are not liked within a certain period of time.
 ## Useful Links
 - [Available Icons](https://icons.expo.fyi/)
 - [React Native Paper](https://callstack.github.io/react-native-paper/)
-- [React Navigation](https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab)
+- [React Navigation](https://reactnavigation.org/docs/getting-started)
