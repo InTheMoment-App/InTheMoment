@@ -1,9 +1,10 @@
-import React, { Component, useState, useEffect } from 'react';
-import {
-    StyleSheet, Text, View, TouchableOpacity, Modal
-} from 'react-native';
 import { Camera } from 'expo-camera';
+import React, { useState, useEffect } from 'react';
 import { Ionicons, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import {
+    StyleSheet, Text, View, TouchableOpacity,
+} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -52,106 +53,66 @@ const styles = StyleSheet.create({
 
 });
 
-type CameraProps = {};
-type CameraState = {
-    hasPermission: boolean,
-    cameraVisible: boolean,
-    backCamera: boolean,
-  };
+export default function CameraScreen() {
+    const navigation = useNavigation();
+    const [hasPermission, setHasPermission] = useState<null | boolean>(null);
+    const [type, setType] = useState(Camera.Constants.Type.back);
 
-export default class CameraScreen extends Component<CameraProps, CameraState> {
-    constructor(props: CameraProps) {
-        console.log("got to constructor");
-        super(props);
-        this.state = {
-            hasPermission: false,
-            cameraVisible: true,
-            backCamera: true,
-        };
+    useEffect(() => {
+        (async () => {
+            const { status } = await Camera.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+        })();
+    }, []);
+
+    if (hasPermission === null) {
+        return <View />;
+    }
+    if (hasPermission === false) {
+        return <Text>No access to camera</Text>;
     }
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const { status } = await Camera.requestPermissionsAsync();
-    //         setHasPermission(status === 'granted');
-    //     })();
-    // }, []);
-    async componentDidMount() {
-        console.log("GOT TO PERMISSIONS");
-        const {status} = await Camera.requestPermissionsAsync();
-        this.setState({ hasPermission: status === 'granted' });
-    }
-
-    setCameraHidden(){
-        this.setState({ cameraVisible: false })
-    }
-
-    setCameraVisible(){
-        this.setState({ cameraVisible : true })
-    }
-
-    changeCamera(){
-        let cameraType;
-
-        if ( this.state.backCamera ){
-            cameraType = Camera.Constants.Type.front;
-        } else {
-            cameraType = Camera.Constants.Type.back
+    const changeCamera = () => {
+        if (type === Camera.Constants.Type.back) {
+            setType(Camera.Constants.Type.front);
+            return;
         }
 
-        this.setState({ backCamera: !this.state.backCamera })
+        setType(Camera.Constants.Type.back);
+    };
 
-        return cameraType;
-    }
-
-    render() {
-        console.log("GOT TO RENDER");
-        if (this.state.hasPermission === null) {
-            return <View />;
-        }
-        if (this.state.hasPermission === false) {
-            return <Text>No access to camera</Text>;
-        }
-
-        return (
-            <View style={styles.container}>
-                <Modal
-                    animationType="slide"
-                    visible={this.state.cameraVisible}
-                    transparent={true}
-                >
-                    <Camera style={styles.camera} type={Camera.Constants.Type.back}>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity
-                                style={[styles.buttonShadow, styles.flipCamera]}
-                                onPress={() => {
-                                    this.changeCamera();
-                                }}
-                            >
-                                <Ionicons size={32} name="md-camera-reverse" color="white" />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[styles.buttonShadow, styles.closeCamera]}
-                                onPress={() => {
-                                    this.setCameraHidden()
-                                }}
-                            >
-                                <Ionicons size={32} name="close" color="white" />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[styles.buttonShadow, styles.cameraRoll]}
-                            >
-                                <Ionicons size={32} name="images-sharp" color="white" />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[styles.buttonShadow, styles.cameraShutter]}
-                            >
-                                <Entypo size={90} name="circle" color="white" />
-                            </TouchableOpacity>
-                        </View>
-                    </Camera>
-                </Modal>
-            </View>
-        );
-    }
+    return (
+        <View style={styles.container}>
+            <Camera style={styles.camera} type={type}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.flipCamera]}
+                        onPress={() => {
+                            changeCamera();
+                        }}
+                    >
+                        <Ionicons size={32} name="md-camera-reverse" color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.closeCamera]}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                    >
+                        <Ionicons size={32} name="close" color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.cameraRoll]}
+                    >
+                        <Ionicons size={32} name="images-sharp" color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.cameraShutter]}
+                    >
+                        <Entypo size={90} name="circle" color="white" />
+                    </TouchableOpacity>
+                </View>
+            </Camera>
+        </View>
+    );
 }

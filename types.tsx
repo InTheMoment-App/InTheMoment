@@ -1,12 +1,13 @@
 export type RootStackParamList = {
-  Root: undefined;
+  BottomTab: undefined
+  Camera: undefined;
   NotFound: undefined;
 };
 
 export type BottomTabParamList = {
   Home: undefined;
   Discover: undefined;
-  Camera: undefined;
+  CameraPlaceholder: undefined;
   Leaderboard: undefined;
   Profile: undefined;
 };

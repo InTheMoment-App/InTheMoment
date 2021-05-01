@@ -6,16 +6,29 @@ import { ColorSchemeName } from 'react-native';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
+import CameraScreen from '../screens/CameraScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-            <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-        </Stack.Navigator>
+        <RootStack.Navigator
+            headerMode="none"
+            screenOptions={{ animationEnabled: false }}
+            mode="modal"
+        >
+            <RootStack.Screen
+                name="BottomTab"
+                component={BottomTabNavigator}
+            />
+            <RootStack.Screen
+                name="Camera"
+                component={CameraScreen}
+                options={{ animationEnabled: true }}
+            />
+            <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+        </RootStack.Navigator>
     );
 }
 

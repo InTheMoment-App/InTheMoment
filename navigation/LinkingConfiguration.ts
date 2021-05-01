@@ -8,22 +8,32 @@ export default {
                 screens: {
                     Home: {
                         screens: {
-                            HomeScreen: 'one',
+                            HomeScreen: '',
+                        },
+                    },
+                    BottomTab: {
+                        screens: {
+                            BottomTabNavigator: '',
                         },
                     },
                     Discover: {
                         screens: {
-                            DiscoverScreen: 'two',
+                            DiscoverScreen: '',
+                        },
+                    },
+                    Camera: {
+                        screens: {
+                            CameraScreen: '',
                         },
                     },
                     Leaderboard: {
                         screens: {
-                            LeaderboardScreen: 'three',
+                            LeaderboardScreen: '',
                         },
                     },
                     Profile: {
                         screens: {
-                            ProfileScreen: 'four',
+                            ProfileScreen: '',
                         },
                     },
                 },
