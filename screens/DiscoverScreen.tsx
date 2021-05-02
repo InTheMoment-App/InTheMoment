@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import {
-    StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity,
+    StyleSheet, ActivityIndicator, TouchableOpacity,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
 import { Searchbar } from 'react-native-paper';
 import { View } from '../components/Themed';
+import Layout from '../constants/Layout';
 
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const LONGITUDE_DELTA = LATITUDE_DELTA * Layout.window.aspect_ratio;
 
 const styles = StyleSheet.create({
     container: {
