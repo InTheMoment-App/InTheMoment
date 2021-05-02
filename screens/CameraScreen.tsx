@@ -1,9 +1,10 @@
+import { Camera } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import { Camera } from 'expo-camera';
-import { Ionicons, Entypo } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
     container: {
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
         top: 40,
         position: 'absolute',
     },
+    closeCamera: {
+        flex: 1,
+        alignSelf: 'flex-start',
+        justifyContent: 'flex-start',
+        top: 40,
+    },
     cameraRoll: {
         flex: 1,
         alignSelf: 'flex-start',
@@ -46,8 +53,9 @@ const styles = StyleSheet.create({
 
 });
 
-export default function App() {
-    const [hasPermission, setHasPermission] = useState(null);
+export default function CameraScreen() {
+    const navigation = useNavigation();
+    const [hasPermission, setHasPermission] = useState<null | boolean>(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
@@ -63,6 +71,16 @@ export default function App() {
     if (hasPermission === false) {
         return <Text>No access to camera</Text>;
     }
+
+    const changeCamera = () => {
+        if (type === Camera.Constants.Type.back) {
+            setType(Camera.Constants.Type.front);
+            return;
+        }
+
+        setType(Camera.Constants.Type.back);
+    };
+
     return (
         <View style={styles.container}>
             <Camera style={styles.camera} type={type}>
@@ -70,14 +88,18 @@ export default function App() {
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.flipCamera]}
                         onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back,
-                            );
+                            changeCamera();
                         }}
                     >
                         <Ionicons size={32} name="md-camera-reverse" color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.closeCamera]}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                    >
+                        <Ionicons size={32} name="close" color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraRoll]}

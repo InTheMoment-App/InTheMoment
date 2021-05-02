@@ -1,27 +1,26 @@
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
-import CameraScreen from '../screens/CameraScreen';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 import {
     BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
 import i18n from '../translations/Translate';
 
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-    return <Ionicons size={26} style={{ marginBottom: -3 }} {...props} />;
-}
+const CameraPlaceholder = () => (
+    <View style={{ flex: 1, backgroundColor: 'blue' }} />
+);
 
 const HomeStack = createStackNavigator<HomeParamList>();
-
 function HomeNavigator() {
     return (
         <HomeStack.Navigator>
@@ -35,7 +34,6 @@ function HomeNavigator() {
 }
 
 const DiscoverStack = createStackNavigator<DiscoverParamList>();
-
 function DiscoverNavigator() {
     return (
         <DiscoverStack.Navigator>
@@ -48,22 +46,7 @@ function DiscoverNavigator() {
     );
 }
 
-const CameraStack = createStackNavigator<DiscoverParamList>();
-
-function CameraNavigator() {
-    return (
-        <CameraStack.Navigator>
-            <CameraStack.Screen
-                name="CameraScreen"
-                component={CameraScreen}
-                options={{ headerShown: false }}
-            />
-        </CameraStack.Navigator>
-    );
-}
-
 const LeaderboardStack = createStackNavigator<LeaderboardParamList>();
-
 function LeaderboardNavigator() {
     return (
         <LeaderboardStack.Navigator>
@@ -77,7 +60,6 @@ function LeaderboardNavigator() {
 }
 
 const ProfileStack = createStackNavigator<ProfileParamList>();
-
 function ProfileNavigator() {
     return (
         <ProfileStack.Navigator>
@@ -90,54 +72,62 @@ function ProfileNavigator() {
     );
 }
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
+    return <Ionicons size={26} style={{ marginBottom: -3 }} {...props} />;
+}
 
+const BottomTabs = createBottomTabNavigator<BottomTabParamList>();
 export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
-
     return (
-        <BottomTab.Navigator
+        <BottomTabs.Navigator
             initialRouteName="Home"
             tabBarOptions={{
                 activeTintColor: Colors[colorScheme].tint,
                 showLabel: false,
             }}
         >
-            <BottomTab.Screen
+            <BottomTabs.Screen
                 name="Home"
                 component={HomeNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
                 }}
             />
-            <BottomTab.Screen
+            <BottomTabs.Screen
                 name="Discover"
                 component={DiscoverNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
                 }}
             />
-            <BottomTab.Screen
-                name="Camera"
-                component={CameraNavigator}
+            <BottomTabs.Screen
+                name="CameraPlaceholder"
+                component={CameraPlaceholder}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="add-circle" color={color} />,
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        navigation.navigate('Camera');
+                    },
+                })}
             />
-            <BottomTab.Screen
+            <BottomTabs.Screen
                 name="Leaderboard"
                 component={LeaderboardNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="podium" color={color} />,
                 }}
             />
-            <BottomTab.Screen
+            <BottomTabs.Screen
                 name="Profile"
                 component={ProfileNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="person-circle" color={color} />,
                 }}
             />
-        </BottomTab.Navigator>
+        </BottomTabs.Navigator>
     );
 }
