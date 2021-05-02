@@ -10,7 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import {
+import {    
     BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
@@ -27,7 +27,7 @@ function HomeNavigator() {
             <HomeStack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
-                options={{ headerTitle: 'Home', headerTitleAlign: 'left' }}
+                options={{ headerTitle: i18n.t('home'), headerTitleAlign: 'left' }}
             />
         </HomeStack.Navigator>
     );
@@ -53,7 +53,7 @@ function LeaderboardNavigator() {
             <LeaderboardStack.Screen
                 name="LeaderboardScreen"
                 component={LeaderboardScreen}
-                options={{ headerTitle: 'Leaderboard', headerTitleAlign: 'left' }}
+                options={{ headerTitle: i18n.t('leaderboard'), headerTitleAlign: 'left' }}
             />
         </LeaderboardStack.Navigator>
     );

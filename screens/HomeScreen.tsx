@@ -1,12 +1,11 @@
 import * as React from 'react';
 import {
-    Dimensions, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,
+    StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 
-const CARD_WIDTH = Dimensions.get('window').width;
-const CARD_HEIGHT = Dimensions.get('window').height * 0.7;
+import Layout from '../constants/Layout';
 
 const styles = StyleSheet.create({
     scrollview: {
@@ -15,8 +14,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     cardStyle: {
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
+        width: Layout.card.width,
+        height: Layout.card.height,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
@@ -26,8 +25,8 @@ const styles = StyleSheet.create({
     },
     image: {
         justifyContent: 'center',
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT * 0.92,
+        width: Layout.card.image_width,
+        height: Layout.card.image_height,
         borderRadius: 0,
     },
 });
