@@ -10,7 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import {    
+import {
     BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
 } from '../types';
 
