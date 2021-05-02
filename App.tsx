@@ -6,6 +6,7 @@ import { ApolloProvider } from '@apollo/client/react';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import client from './components/GraphQLService';
 
@@ -18,10 +19,12 @@ export default function App() {
     }
     return (
         <ApolloProvider client={client}>
-            <SafeAreaProvider>
-                <Navigation colorScheme={colorScheme} />
-                <StatusBar />
-            </SafeAreaProvider>
+            <PaperProvider>
+                <SafeAreaProvider>
+                    <Navigation colorScheme={colorScheme} />
+                    <StatusBar />
+                </SafeAreaProvider>
+            </PaperProvider>
         </ApolloProvider>
     );
 }
