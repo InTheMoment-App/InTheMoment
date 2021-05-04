@@ -81,7 +81,7 @@ export default function HomeScreen() {
 
     return (
         <SafeAreaView style={styles.scrollview}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView>
                 { renderCards(cards) }
             </ScrollView>
         </SafeAreaView>
