@@ -2,8 +2,9 @@ import { Camera } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 import {
-    StyleSheet, Text, View, TouchableOpacity,
+    StyleSheet, Platform, View, TouchableOpacity,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -44,33 +45,43 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         justifyContent: 'flex-end',
         position: 'absolute',
-        bottom: 0,
+        bottom: 30,
     },
     cameraShutter: {
         flex: 1,
         justifyContent: 'flex-end',
+        bottom: 15,
     },
 
 });
 
 export default function CameraScreen() {
+    let camera: Camera
     const navigation = useNavigation();
-    const [hasPermission, setHasPermission] = useState<null | boolean>(null);
+    const [media, setMedia] = useState<null | string>(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
         (async () => {
-            const { status } = await Camera.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
+            if (Platform.OS !== 'web') {
+                const { status } = await Camera.requestPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera permissions to make this work!');
+                }
+            }
         })();
     }, []);
 
-    if (hasPermission === null) {
-        return <View />;
-    }
-    if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
-    }
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, []);
 
     const changeCamera = () => {
         if (type === Camera.Constants.Type.back) {
@@ -81,9 +92,40 @@ export default function CameraScreen() {
         setType(Camera.Constants.Type.back);
     };
 
+    const __takePicture = async () => {
+        const photo: any = await camera.takePictureAsync()
+        setMedia(photo.uri)
+    }
+
+    const __takeVideo = async () => {
+        const video: any = await camera.recordAsync({
+            maxDuration: 10
+        });
+        setMedia(video.uri);
+    }
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        if (!result.cancelled) {
+          setMedia(result.uri);
+        }
+      };
+
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} type={type}>
+            <Camera 
+                style={styles.camera} 
+                type={type}
+                ref={(r) => {
+                    camera = r
+                  }}
+            >
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.flipCamera]}
@@ -103,11 +145,23 @@ export default function CameraScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraRoll]}
+                        onPress={ () => { 
+                            pickImage();
+                        }}
                     >
                         <Ionicons size={32} name="images-sharp" color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraShutter]}
+                        onPress={ () => { 
+                            __takePicture();
+                        }}
+                        onLongPress={() => {
+                            __takeVideo();
+                        }}
+                        onPressOut={() => {
+                            camera.stopRecording();
+                        }}
                     >
                         <Entypo size={90} name="circle" color="white" />
                     </TouchableOpacity>
