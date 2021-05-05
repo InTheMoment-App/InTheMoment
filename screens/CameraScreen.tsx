@@ -4,7 +4,7 @@ import { Ionicons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import {
-    StyleSheet, Platform, View, TouchableOpacity,
+    StyleSheet, Platform, View, TouchableOpacity, Alert,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 });
 
 export default function CameraScreen() {
-    let camera: Camera
+    let camera: Camera;
     const navigation = useNavigation();
     const [media, setMedia] = useState<null | string>(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -66,7 +66,7 @@ export default function CameraScreen() {
             if (Platform.OS !== 'web') {
                 const { status } = await Camera.requestPermissionsAsync();
                 if (status !== 'granted') {
-                    alert('Sorry, we need camera permissions to make this work!');
+                    Alert.alert('Sorry, we need camera permissions to make this work!');
                 }
             }
         })();
@@ -77,7 +77,7 @@ export default function CameraScreen() {
             if (Platform.OS !== 'web') {
                 const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
+                    Alert.alert('Sorry, we need camera roll permissions to make this work!');
                 }
             }
         })();
@@ -92,39 +92,39 @@ export default function CameraScreen() {
         setType(Camera.Constants.Type.back);
     };
 
-    const __takePicture = async () => {
-        const photo: any = await camera.takePictureAsync()
-        setMedia(photo.uri)
-    }
+    const takePicture = async () => {
+        const photo: any = await camera.takePictureAsync();
+        setMedia(photo.uri);
+    };
 
-    const __takeVideo = async () => {
+    const takeVideo = async () => {
         const video: any = await camera.recordAsync({
-            maxDuration: 10
+            maxDuration: 10,
         });
         setMedia(video.uri);
-    }
+    };
 
     const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
         });
-    
+
         if (!result.cancelled) {
-          setMedia(result.uri);
+            setMedia(result.uri);
         }
-      };
+    };
 
     return (
         <View style={styles.container}>
-            <Camera 
-                style={styles.camera} 
+            <Camera
+                style={styles.camera}
                 type={type}
                 ref={(r) => {
-                    camera = r
-                  }}
+                    camera = r;
+                }}
             >
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -145,7 +145,7 @@ export default function CameraScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraRoll]}
-                        onPress={ () => { 
+                        onPress={() => {
                             pickImage();
                         }}
                     >
@@ -153,11 +153,11 @@ export default function CameraScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraShutter]}
-                        onPress={ () => { 
-                            __takePicture();
+                        onPress={() => {
+                            takePicture();
                         }}
                         onLongPress={() => {
-                            __takeVideo();
+                            takeVideo();
                         }}
                         onPressOut={() => {
                             camera.stopRecording();
