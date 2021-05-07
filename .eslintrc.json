@@ -1,22 +1,33 @@
 {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
     "env": {
         "es2021": true,
         "node": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "prettier"
     ],
-    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
         "ecmaVersion": 12,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
+    "plugins": [
+        "@typescript-eslint",
+        "react-native",
+        "prettier"
+    ],
     "settings": {
         "import/resolver": {
+          "typescript": {},
           "node": {
             "extensions": [
                 ".js", 
@@ -27,17 +38,20 @@
           }
         }
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
     "globals": {
         "JSX":"readonly"
     },
     "rules": {
+
         "indent": ["error", 4],
+
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
+        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/jsx-props-no-spreading": "off", // TODO: Fix Props to remove this error and the three underneath
+        "react/prop-types": "off",
+        "react/destructuring-assignment": "off" ,
+
         "import/extensions": [
             "error",
             "ignorePackages",
@@ -48,11 +62,12 @@
               "tsx": "never"
             }
          ],
+
         "no-use-before-define": "off",
+        "no-undef": "off",
+        
         "@typescript-eslint/no-use-before-define": ["error"],
-        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-        "react/jsx-props-no-spreading": "off", // TODO: Fix Props to remove this error and the three underneath
-        "react/prop-types": "off",
-        "react/destructuring-assignment": "off" 
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-explicit-any": "off"
       }
 }

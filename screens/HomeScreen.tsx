@@ -5,7 +5,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 
-import Layout from '../constants/Layout';
+import Layout from 'constants/Layout';
 
 const styles = StyleSheet.create({
     scrollview: {

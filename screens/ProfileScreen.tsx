@@ -3,12 +3,12 @@ import { StyleSheet, ScrollView } from 'react-native';
 import {
     List, Avatar, Title, Paragraph,
 } from 'react-native-paper';
-import Layout from '../constants/Layout';
+import Layout from 'constants/Layout';
 
 // TODO: actually use code, commented out so it passes linter since we have no
 // real use for it currently
 // import { useQuery, gql } from '@apollo/client';
-import { View } from '../components/Themed';
+import { View } from 'components/Themed';
 
 const styles = StyleSheet.create({
     container: {

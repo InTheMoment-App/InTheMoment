@@ -1,0 +1,15 @@
+{
+  "singleQuote": true,
+  "printWidth": 100,
+  "semi": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": false,
+  "overrides": [
+    {
+      "options": {
+        "trailingComma": "es5"
+      }
+    }
+  ]
+}

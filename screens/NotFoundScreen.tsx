@@ -4,7 +4,7 @@ import {
     StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from 'types';
 
 const styles = StyleSheet.create({
     container: {
