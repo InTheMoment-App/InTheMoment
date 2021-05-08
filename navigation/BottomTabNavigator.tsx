@@ -4,17 +4,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from '../screens/HomeScreen';
-import LeaderboardScreen from '../screens/LeaderboardScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import DiscoverScreen from '../screens/DiscoverScreen';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import HomeScreen from 'screens/HomeScreen';
+import LeaderboardScreen from 'screens/LeaderboardScreen';
+import ProfileScreen from 'screens/ProfileScreen';
+import DiscoverScreen from 'screens/DiscoverScreen';
+import Colors from 'constants/Colors';
+import useColorScheme from 'hooks/useColorScheme';
 import {
     BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
-} from '../types';
+} from 'types';
 
-import i18n from '../translations/Translate';
+import i18n from 'translations/Translate';
 
 const CameraPlaceholder = () => (
     <View style={{ flex: 1, backgroundColor: 'blue' }} />

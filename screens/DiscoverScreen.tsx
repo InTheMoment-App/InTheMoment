@@ -6,8 +6,8 @@ import {
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
 import { Searchbar } from 'react-native-paper';
-import { View } from '../components/Themed';
-import Layout from '../constants/Layout';
+import { View } from 'components/Themed';
+import Layout from 'constants/Layout';
 
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * Layout.window.aspect_ratio;
@@ -66,15 +66,15 @@ const styles = StyleSheet.create({
     },
 });
 
-type MapProps = {};
+type MapProps = unknown;
 
 type MapState = {
   searchQuery: string,
   loading: boolean,
   loadingMap: boolean,
   updatedRegion: boolean,
-  markerPosition: object,
-  region: object
+  markerPosition: Record<string, unknown>,
+  region: Record<string, unknown>
 };
 
 export default class DiscoverScreen extends Component<MapProps, MapState> {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Card, Divider } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
-import { View } from '../components/Themed';
+import { View } from 'components/Themed';
 
 const styles = StyleSheet.create({
     container: {

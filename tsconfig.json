@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
     "lib": [
@@ -10,7 +11,16 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "assets": ["./assets"],
+      "components": ["./components"],
+      "constants": ["./constants"],
+      "hooks": ["./hooks"],
+      "translations": ["./translations"],
+      "types": ["./types"],
+      "screens": ["./screens"]
+    }
   },
   "extends": "expo/tsconfig.base"
 }
