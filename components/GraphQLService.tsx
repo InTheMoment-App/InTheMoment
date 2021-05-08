@@ -1,9 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { Endpoints } from 'config/endpoints';
 
-let ip = process.env["LOCAL_IP"]
-let port = process.env["PORT"]
 const client = new ApolloClient({
-    uri: `http://${ip}:${port}/graphql`,
+    uri: `http://${Endpoints.GraphQLEndpoint}/graphql`,
     cache: new InMemoryCache(),
 });
 

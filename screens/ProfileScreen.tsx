@@ -7,7 +7,7 @@ import Layout from 'constants/Layout';
 
 // TODO: actually use code, commented out so it passes linter since we have no
 // real use for it currently
-import { useQuery, gql } from '@apollo/client';
+// import { useQuery, gql } from '@apollo/client';
 import { View } from 'components/Themed';
 
 const styles = StyleSheet.create({
@@ -36,25 +36,25 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileScreen() {
-    const EXCHANGE_RATES = gql`
-    query {
-        book(bookId: 2) {
-          id
-          title
-          author
-        }
-      }
-  `;
+//     const EXCHANGE_RATES = gql`
+//     query {
+//         book(bookId: 2) {
+//           id
+//           title
+//           author
+//         }
+//       }
+//   `;
 
-    const testQuery = () => {
-        const { loading, error, data } = useQuery(EXCHANGE_RATES);
-        if (error || loading) {
-            return;
-        }
-        return data;
-    };
+    // const testQuery = () => {
+    //     const { loading, error, data } = useQuery(EXCHANGE_RATES);
+    //     if (error || loading) {
+    //         return;
+    //     }
+    //     return data;
+    // };
 
-    testQuery();
+    // testQuery();
 
     return (
         <View style={styles.container}>

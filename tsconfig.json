@@ -15,6 +15,7 @@
     "paths": {
       "assets": ["./assets"],
       "components": ["./components"],
+      "config": ["./config"],
       "constants": ["./constants"],
       "hooks": ["./hooks"],
       "translations": ["./translations"],
