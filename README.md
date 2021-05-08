@@ -5,7 +5,7 @@ they are not liked within a certain period of time.
 1. Ensure you have [expo](https://docs.expo.io/) installed
 2. Run `npm install`
 3. Download expo go
-4. Edit the `GraphQLService` with your local ip address
+4. Duplicate the `sample.env` and rename it to `.env` and edit it with your information
 5. Ensure you have downloaded and setup the [backend](https://github.com/ryoung2512/InTheMoment-Backend)
 5. Run `expo start`
 
