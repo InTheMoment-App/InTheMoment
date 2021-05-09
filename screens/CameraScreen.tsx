@@ -95,7 +95,9 @@ export default function CameraScreen() {
     const takePicture = async () => {
         const photo: any = await camera.takePictureAsync();
         setMedia(photo.uri);
-        Alert.alert(media); // adding this to pass linter
+        navigation.navigate('PostPreview', {
+            media: photo.uri
+        });
     };
 
     const takeVideo = async () => {
@@ -146,6 +148,7 @@ export default function CameraScreen() {
                     >
                         <Ionicons size={32} name="close" color="white" />
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraRoll]}
                         onPress={() => {
