@@ -26,10 +26,20 @@ export default {
                             CameraScreen: '',
                         },
                     },
+                    FullScreenImage: {
+                        screens: {
+                            FullScreenImageScreen: '',
+                        }
+                    },
                     Leaderboard: {
                         screens: {
                             LeaderboardScreen: '',
                         },
+                    },
+                    PostPreview: {
+                        screens: {
+                            PostPreviewScreen: '',
+                        }
                     },
                     Profile: {
                         screens: {

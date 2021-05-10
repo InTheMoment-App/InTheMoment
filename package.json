@@ -52,7 +52,8 @@
     "react-native-ui-lib": "^5.23.3",
     "react-native-web": "~0.16.2",
     "@react-native-picker/picker": "1.9.11",
-    "expo-file-system": "~11.0.2"
+    "expo-file-system": "~11.0.2",
+    "expo-video-thumbnails": "~5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

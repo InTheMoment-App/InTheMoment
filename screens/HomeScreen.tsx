@@ -2,11 +2,11 @@ import * as React from 'react';
 import {
     StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,
 } from 'react-native';
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
+// import * as Sharing from 'expo-sharing';
+// import * as FileSystem from 'expo-file-system';
 
 import Layout from 'constants/Layout';
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
 export default function HomeScreen() {
     const navigation = useNavigation();
-    const fileUri = FileSystem.cacheDirectory + 'tmp.jpg';
+    // const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
     
     type CardType = {
         key: string,

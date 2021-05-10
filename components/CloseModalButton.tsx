@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
         top: 0,
         zIndex:999,
     },
+    buttonShadow: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 2,
+    },
     closeModal: {
         flex: 1,
         alignSelf: 'flex-start',
@@ -21,12 +28,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export function CloseModalButton( props : any ){
+export default function CloseModalButton( props : any ){
     const navigation = useNavigation();
     return(
         <View style={ styles.buttonContainer} {...props}>
             <TouchableOpacity
-                style={styles.closeModal}
+                style={[styles.buttonShadow, styles.closeModal]}
                 onPress={() => {
                     navigation.goBack();
                 }}

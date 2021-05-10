@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { ActivityIndicator } from 'react-native-paper'
-import { CloseModalButton } from 'components/CloseModalButton';
+import CloseModalButton from 'components/CloseModalButton';
 
 export default function FullScreenImageScreen({ route, navigation}) {
     const { media } = route.params;
