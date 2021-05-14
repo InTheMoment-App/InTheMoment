@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
 export default function CameraScreen() {
     let camera: Camera;
     const navigation = useNavigation();
-    const [media, setMedia] = useState<string>('');
     const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
@@ -95,7 +94,6 @@ export default function CameraScreen() {
 
     const takePicture = async () => {
         const photo: any = await camera.takePictureAsync();
-        setMedia(photo.uri);
         navigation.navigate('PostPreview', {
             media: photo.uri
         });
