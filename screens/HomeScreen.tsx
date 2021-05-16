@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
+    Alert,
     FlatList, 
     StyleSheet, 
     SafeAreaView, 
@@ -8,11 +9,10 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
-import POSTS from 'fixtures/posts'
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 
+import POSTS from 'fixtures/posts'
 import Layout from 'constants/Layout';
 
 const styles = StyleSheet.create({
@@ -44,6 +44,11 @@ export default function HomeScreen() {
     const [posts, setPosts] = useState([]);
     const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
 
+    const getPosts = () => {
+        const uniquePosts = new Set([...posts, ...POSTS]);
+        setPosts([...uniquePosts])
+    };
+
     useEffect(() => getPosts(), []);
 
     const imageLiked = (liked: boolean) => {
@@ -57,53 +62,45 @@ export default function HomeScreen() {
             );
         }
 
+        // add support for light mode - just making it nicer for dark mode here
         return <Ionicons name="heart-outline" size={32} color="white" />;
     };
 
     const openShareDialogAsync = async (imageURL : string) => {
         if (!(await Sharing.isAvailableAsync())) {
-            alert(`Uh oh, sharing isn't available on your platform`);
+            Alert.alert("Whoops something wen't wrong")
             return;
-          }
+        }
 
         FileSystem.downloadAsync(imageURL, fileUri)
-        .then(({ uri }) => {
-            // setState(`Downloaded image to ${uri}`);
-        })
-        .catch((err) => {
-        //   setState('Error downloading image');
-        //   console.log(JSON.stringify(err));
-        });
-
+            .catch((err) => {
+                Alert.alert(err)
+                
+            });
         await Sharing.shareAsync(fileUri);
     }; 
 
-    const getPosts = () => {
-        let uniquePosts = new Set([...posts, ...POSTS]);
-        setPosts([...uniquePosts])
-    };
-
     const renderPost = ({ item }) => (
-            <Card 
-                style={styles.cardStyle}                         
-                onPress={() => {
-                    navigation.navigate('FullScreenImage', {
-                        media: item.url
-                    });
-                }}
-            >
-                <Card.Cover source={{ uri: item.url }} style={styles.image} />
-                <Card.Actions>
-                    <TouchableOpacity>
-                        { imageLiked(item.liked) }
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => openShareDialogAsync( item.url ) }
-                    >
-                        <Ionicons name="share-outline" size={32} color="white"/>
-                    </TouchableOpacity>
-                </Card.Actions>
-            </Card>
+        <Card 
+            style={styles.cardStyle}                         
+            onPress={() => {
+                navigation.navigate('FullScreenImage', {
+                    media: item.url
+                });
+            }}
+        >
+            <Card.Cover source={{ uri: item.url }} style={styles.image} />
+            <Card.Actions>
+                <TouchableOpacity>
+                    { imageLiked(item.liked) }
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => openShareDialogAsync( item.url ) }
+                >
+                    <Ionicons name="share-outline" size={32} color="white"/>
+                </TouchableOpacity>
+            </Card.Actions>
+        </Card>
     );
 
     return (
