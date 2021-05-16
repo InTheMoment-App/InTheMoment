@@ -19,6 +19,7 @@ module.exports = api => {
             components: './components',
             constants: './constants',
             config: './config',
+            fixtures: './fixtures',
             hooks: './hooks',
             translations: './translations',
             types: './types',

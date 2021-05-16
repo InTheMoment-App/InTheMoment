@@ -1,17 +1,22 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-    StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,
+    FlatList, 
+    StyleSheet, 
+    SafeAreaView, 
+    TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-// import * as Sharing from 'expo-sharing';
-// import * as FileSystem from 'expo-file-system';
+
+import POSTS from 'fixtures/posts'
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 
 import Layout from 'constants/Layout';
 
 const styles = StyleSheet.create({
-    scrollview: {
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -36,26 +41,10 @@ const styles = StyleSheet.create({
 
 export default function HomeScreen() {
     const navigation = useNavigation();
-    // const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
-    
-    type CardType = {
-        key: string,
-        name: string,
-        liked: boolean
-    }
+    const [posts, setPosts] = useState([]);
+    const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
 
-    const cards = [
-        { key: '1', name: 'https://picsum.photos/1536/2048', liked: true },
-        { key: '2', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '3', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '4', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '5', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '6', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '7', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '8', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '9', name: 'https://picsum.photos/1536/2048', liked: false },
-        { key: '10', name: 'https://picsum.photos/1536/2048', liked: false },
-    ];
+    useEffect(() => getPosts(), []);
 
     const imageLiked = (liked: boolean) => {
         if (liked) {
@@ -68,59 +57,64 @@ export default function HomeScreen() {
             );
         }
 
-        return <Ionicons name="heart-outline" size={32} color="#FC160F" />;
+        return <Ionicons name="heart-outline" size={32} color="white" />;
     };
 
-    // const openShareDialogAsync = async (imageURL : string) => {
-    //     if (!(await Sharing.isAvailableAsync())) {
-    //         alert(`Uh oh, sharing isn't available on your platform`);
-    //         return;
-    //       }
+    const openShareDialogAsync = async (imageURL : string) => {
+        if (!(await Sharing.isAvailableAsync())) {
+            alert(`Uh oh, sharing isn't available on your platform`);
+            return;
+          }
 
-    //     FileSystem.downloadAsync(imageURL, fileUri)
-    //     .then(({ uri }) => {
-    //         // setState(`Downloaded image to ${uri}`);
-    //     })
-    //     .catch((err) => {
-    //     //   setState('Error downloading image');
-    //       console.log(JSON.stringify(err));
-    //     });
+        FileSystem.downloadAsync(imageURL, fileUri)
+        .then(({ uri }) => {
+            // setState(`Downloaded image to ${uri}`);
+        })
+        .catch((err) => {
+        //   setState('Error downloading image');
+        //   console.log(JSON.stringify(err));
+        });
 
-    //     await Sharing.shareAsync(fileUri);
-    // }; 
+        await Sharing.shareAsync(fileUri);
+    }; 
 
-    const renderCards = (views: CardType[]): JSX.Element[] => {
-        const { cardStyle } = styles;
-        return views.map((card) => (
+    const getPosts = () => {
+        let uniquePosts = new Set([...posts, ...POSTS]);
+        setPosts([...uniquePosts])
+    };
+
+    const renderPost = ({ item }) => (
             <Card 
-                style={cardStyle} 
-                key={card.key}                         
+                style={styles.cardStyle}                         
                 onPress={() => {
                     navigation.navigate('FullScreenImage', {
-                        media: card.name
+                        media: item.url
                     });
                 }}
             >
-                <Card.Cover source={{ uri: card.name }} style={styles.image} />
+                <Card.Cover source={{ uri: item.url }} style={styles.image} />
                 <Card.Actions>
                     <TouchableOpacity>
-                        { imageLiked(card.liked) }
+                        { imageLiked(item.liked) }
                     </TouchableOpacity>
-                    {/* <TouchableOpacity
-                        onPress={() => openShareDialogAsync( card.name ) }
+                    <TouchableOpacity
+                        onPress={() => openShareDialogAsync( item.url ) }
                     >
-                        <Entypo name="share" size={32} color="blue"/>
-                    </TouchableOpacity> */}
+                        <Ionicons name="share-outline" size={32} color="white"/>
+                    </TouchableOpacity>
                 </Card.Actions>
             </Card>
-        ));
-    };
+    );
 
     return (
-        <SafeAreaView style={styles.scrollview}>
-            <ScrollView>
-                { renderCards(cards) }
-            </ScrollView>
+        <SafeAreaView style={styles.container}>
+            <FlatList
+                data={posts}
+                renderItem={renderPost}
+                keyExtractor={post => post.id}
+                onEndReached={getPosts}
+                onEndReachedThreshold={0.5}
+            />
         </SafeAreaView>
     );
 }
