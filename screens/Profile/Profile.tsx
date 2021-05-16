@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Profile = () => {
+const Profile = () => 
 //     const EXCHANGE_RATES = gql`
 //     query {
 //         book(bookId: 2) {
@@ -46,17 +46,17 @@ const Profile = () => {
 //       }
 //   `;
 
-    // const testQuery = () => {
-    //     const { loading, error, data } = useQuery(EXCHANGE_RATES);
-    //     if (error || loading) {
-    //         return;
-    //     }
-    //     return data;
-    // };
+// const testQuery = () => {
+//     const { loading, error, data } = useQuery(EXCHANGE_RATES);
+//     if (error || loading) {
+//         return;
+//     }
+//     return data;
+// };
 
-    // testQuery();
+// testQuery();
 
-    return (
+    (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.headerStyle}>
@@ -102,7 +102,7 @@ const Profile = () => {
                 </List.Section>
             </ScrollView>
         </View>
-    );
-}
+    )
+
 
 export default Profile;
