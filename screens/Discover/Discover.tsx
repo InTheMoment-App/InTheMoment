@@ -77,7 +77,7 @@ type MapState = {
   region: Record<string, unknown>
 };
 
-export default class DiscoverScreen extends Component<MapProps, MapState> {
+export default class Discover extends Component<MapProps, MapState> {
     constructor(props: MapProps) {
         super(props);
         this.state = {

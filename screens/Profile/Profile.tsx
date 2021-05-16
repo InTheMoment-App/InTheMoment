@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function ProfileScreen() {
+const Profile = () => 
 //     const EXCHANGE_RATES = gql`
 //     query {
 //         book(bookId: 2) {
@@ -46,17 +46,17 @@ export default function ProfileScreen() {
 //       }
 //   `;
 
-    // const testQuery = () => {
-    //     const { loading, error, data } = useQuery(EXCHANGE_RATES);
-    //     if (error || loading) {
-    //         return;
-    //     }
-    //     return data;
-    // };
+// const testQuery = () => {
+//     const { loading, error, data } = useQuery(EXCHANGE_RATES);
+//     if (error || loading) {
+//         return;
+//     }
+//     return data;
+// };
 
-    // testQuery();
+// testQuery();
 
-    return (
+    (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.headerStyle}>
@@ -102,5 +102,7 @@ export default function ProfileScreen() {
                 </List.Section>
             </ScrollView>
         </View>
-    );
-}
+    )
+
+
+export default Profile;

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function PostPreviewScreen({ route, navigation}) {
+const PostPreview = ({route, navigation}) => {
     const { media } = route.params;
 
     const chips = {
@@ -85,3 +85,5 @@ export default function PostPreviewScreen({ route, navigation}) {
 
     );
 }
+
+export default PostPreview;

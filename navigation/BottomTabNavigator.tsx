@@ -4,10 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from 'screens/HomeScreen';
-import LeaderboardScreen from 'screens/LeaderboardScreen';
-import ProfileScreen from 'screens/ProfileScreen';
-import DiscoverScreen from 'screens/DiscoverScreen';
+import HomeScreen from 'screens/Home';
+import LeaderboardScreen from 'screens/Leaderboard';
+import ProfileScreen from 'screens/Profile';
+import DiscoverScreen from 'screens/Discover';
 import Colors from 'constants/Colors';
 import useColorScheme from 'hooks/useColorScheme';
 import {
