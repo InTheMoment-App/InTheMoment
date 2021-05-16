@@ -28,9 +28,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function NotFoundScreen({
-    navigation,
-}: StackScreenProps<RootStackParamList, 'NotFound'>) {
+const NotFoundScreen = ({navigation} : StackScreenProps<RootStackParamList, 'NotFound'>) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>This screen doesn&apos;t exist.</Text>
@@ -40,3 +38,5 @@ export default function NotFoundScreen({
         </View>
     );
 }
+
+export default NotFoundScreen;

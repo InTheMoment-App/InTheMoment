@@ -4,7 +4,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import { ActivityIndicator } from 'react-native-paper'
 import CloseModalButton from 'components/CloseModalButton';
 
-export default function FullScreenImageScreen({ route, navigation}) {
+const FullScreenImage = ({route, navigation}) => {
     const { media } = route.params;
 
     const images = [{
@@ -31,3 +31,5 @@ export default function FullScreenImageScreen({ route, navigation}) {
 
     );
 }
+
+export default FullScreenImage;

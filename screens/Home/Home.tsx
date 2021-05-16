@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function HomeScreen() {
+const Home = () => {
     const navigation = useNavigation();
     const [posts, setPosts] = useState([]);
     const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
@@ -115,3 +115,5 @@ export default function HomeScreen() {
         </SafeAreaView>
     );
 }
+
+export default Home;

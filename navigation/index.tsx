@@ -3,11 +3,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import NotFoundScreen from 'screens/NotFoundScreen';
+import NotFoundScreen from 'screens/NotFound';
 import { RootStackParamList } from 'types';
-import CameraScreen from 'screens/CameraScreen';
-import PostPreviewScreen from 'screens/PostPreviewScreen';
-import FullScreenImageScreen from 'screens/FullScreenImageScreen';
+import CameraScreen from 'screens/Camera';
+import PostPreviewScreen from 'screens/PostPreview';
+import FullScreenImageScreen from 'screens/FullScreenImage';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 

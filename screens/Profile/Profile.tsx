@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function ProfileScreen() {
+const Profile = () => {
 //     const EXCHANGE_RATES = gql`
 //     query {
 //         book(bookId: 2) {
@@ -104,3 +104,5 @@ export default function ProfileScreen() {
         </View>
     );
 }
+
+export default Profile;

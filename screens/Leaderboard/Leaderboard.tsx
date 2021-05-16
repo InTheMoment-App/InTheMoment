@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function LeaderboardScreen() {
+const Leaderboard = () => {
     const avatarIcon = (props : any, imageUrl: string, name: string) => {
         if (imageUrl === '') {
             const initial = name.charAt(0).toUpperCase();
@@ -80,3 +80,5 @@ export default function LeaderboardScreen() {
         </View>
     );
 }
+
+export default Leaderboard;

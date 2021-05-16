@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 
 });
 
-export default function CameraScreen() {
+const CameraScreen = () => {
     let camera: Camera;
     const navigation = useNavigation();
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -184,3 +184,5 @@ export default function CameraScreen() {
         </View>
     );
 }
+
+export default CameraScreen;
