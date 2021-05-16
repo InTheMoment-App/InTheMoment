@@ -110,7 +110,7 @@ export default function CameraScreen() {
                 media: uri
             });
         } catch(e) {
-            console.warn(e);
+            // console.warn(e);
         }
     };
 
