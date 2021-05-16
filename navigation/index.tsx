@@ -6,6 +6,8 @@ import { ColorSchemeName } from 'react-native';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import { RootStackParamList } from 'types';
 import CameraScreen from 'screens/CameraScreen';
+import PostPreviewScreen from 'screens/PostPreviewScreen';
+import FullScreenImageScreen from 'screens/FullScreenImageScreen';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -26,6 +28,14 @@ function RootNavigator() {
                 name="Camera"
                 component={CameraScreen}
                 options={{ animationEnabled: true }}
+            />
+            <RootStack.Screen
+                name="PostPreview"
+                component={PostPreviewScreen}
+            />
+            <RootStack.Screen
+                name="FullScreenImage"
+                component={FullScreenImageScreen}
             />
             <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
         </RootStack.Navigator>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 import {
     StyleSheet, Platform, View, TouchableOpacity, Alert,
 } from 'react-native';
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
 export default function CameraScreen() {
     let camera: Camera;
     const navigation = useNavigation();
-    const [media, setMedia] = useState<string>('');
     const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
@@ -94,30 +94,40 @@ export default function CameraScreen() {
 
     const takePicture = async () => {
         const photo: any = await camera.takePictureAsync();
-        setMedia(photo.uri);
-        Alert.alert(media); // adding this to pass linter
+        navigation.navigate('PostPreview', {
+            media: photo.uri
+        });
     };
 
     const takeVideo = async () => {
         const video: any = await camera.recordAsync({
             maxDuration: 10,
         });
-        setMedia(video.uri);
-        Alert.alert(media); // adding this to pass linter
+        try {
+            const { uri } = await VideoThumbnails.getThumbnailAsync( video.uri, { time: 0 });
+
+            navigation.navigate('PostPreview', {
+                media: uri
+            });
+        } catch(e) {
+            console.warn(e);
+        }
     };
 
     const pickImage = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
+            allowsEditing: false, // turned off editing because of a weird crop workflow on ios
             aspect: [4, 3],
             quality: 1,
+            videoMaxDuration: 10
         });
 
         if (!result.cancelled) {
-            setMedia(result.uri);
+            navigation.navigate('PostPreview', {
+                media: result.uri
+            });
         }
-        Alert.alert(media); // adding this to pass linter
     };
 
     return (
@@ -146,6 +156,7 @@ export default function CameraScreen() {
                     >
                         <Ionicons size={32} name="close" color="white" />
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.cameraRoll]}
                         onPress={() => {

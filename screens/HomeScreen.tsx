@@ -4,6 +4,9 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+// import * as Sharing from 'expo-sharing';
+// import * as FileSystem from 'expo-file-system';
 
 import Layout from 'constants/Layout';
 
@@ -32,6 +35,9 @@ const styles = StyleSheet.create({
 });
 
 export default function HomeScreen() {
+    const navigation = useNavigation();
+    // const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
+    
     type CardType = {
         key: string,
         name: string,
@@ -65,15 +71,46 @@ export default function HomeScreen() {
         return <Ionicons name="heart-outline" size={32} color="#FC160F" />;
     };
 
+    // const openShareDialogAsync = async (imageURL : string) => {
+    //     if (!(await Sharing.isAvailableAsync())) {
+    //         alert(`Uh oh, sharing isn't available on your platform`);
+    //         return;
+    //       }
+
+    //     FileSystem.downloadAsync(imageURL, fileUri)
+    //     .then(({ uri }) => {
+    //         // setState(`Downloaded image to ${uri}`);
+    //     })
+    //     .catch((err) => {
+    //     //   setState('Error downloading image');
+    //       console.log(JSON.stringify(err));
+    //     });
+
+    //     await Sharing.shareAsync(fileUri);
+    // }; 
+
     const renderCards = (views: CardType[]): JSX.Element[] => {
         const { cardStyle } = styles;
         return views.map((card) => (
-            <Card style={cardStyle} key={card.key}>
+            <Card 
+                style={cardStyle} 
+                key={card.key}                         
+                onPress={() => {
+                    navigation.navigate('FullScreenImage', {
+                        media: card.name
+                    });
+                }}
+            >
                 <Card.Cover source={{ uri: card.name }} style={styles.image} />
                 <Card.Actions>
                     <TouchableOpacity>
                         { imageLiked(card.liked) }
                     </TouchableOpacity>
+                    {/* <TouchableOpacity
+                        onPress={() => openShareDialogAsync( card.name ) }
+                    >
+                        <Entypo name="share" size={32} color="blue"/>
+                    </TouchableOpacity> */}
                 </Card.Actions>
             </Card>
         ));
