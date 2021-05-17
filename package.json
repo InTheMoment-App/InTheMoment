@@ -49,7 +49,7 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.2.0",
     "react-native-tab-view": "^2.16.0",
-    "react-native-ui-lib": "^5.23.3",
+    "react-native-ui-lib": "^5.24.2",
     "react-native-web": "~0.16.3",
     "@react-native-picker/picker": "1.9.11",
     "expo-file-system": "~11.0.2",
