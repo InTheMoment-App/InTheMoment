@@ -58,10 +58,10 @@ const Home = () => {
     const { loading, error, data, refetch, networkStatus } = useQuery(POSTS);
 
     if ( loading ) return <ActivityIndicator/>;
-    if ( error ) console.error(error);
+    if ( error ) return;
     if ( !data ) return null;
     
-    let refetching = networkStatus === 4;
+    const refetching = networkStatus === 4;
 
     const imageLiked = (liked: boolean) => {
         if (liked) {
