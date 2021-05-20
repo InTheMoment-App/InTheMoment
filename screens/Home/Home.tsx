@@ -58,7 +58,7 @@ const Home = () => {
     const { loading, error, data, refetch, networkStatus } = useQuery(POSTS);
 
     if ( loading ) return <ActivityIndicator/>;
-    if ( error ) return;
+    if ( error ) return null;
     if ( !data ) return null;
     
     const refetching = networkStatus === 4;
