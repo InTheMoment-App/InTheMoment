@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
     Alert,
     FlatList, 
@@ -7,12 +7,12 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Card } from 'react-native-paper';
+import { Card, ActivityIndicator } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
+import { useQuery, gql } from '@apollo/client';
 
-import POSTS from 'fixtures/posts'
 import Layout from 'constants/Layout';
 
 const styles = StyleSheet.create({
@@ -39,17 +39,29 @@ const styles = StyleSheet.create({
     },
 });
 
+const POSTS = gql`
+    query {
+        allImages {
+            fileurl
+            datetime
+            location
+            uploadedBy
+            tags
+            thumbnail
+        }
+    }
+`;
+
 const Home = () => {
     const navigation = useNavigation();
-    const [posts, setPosts] = useState([]);
     const fileUri = `${FileSystem.cacheDirectory  }tmp.jpg`;
+    const { loading, error, data, refetch, networkStatus } = useQuery(POSTS);
 
-    const getPosts = () => {
-        const uniquePosts = new Set([...posts, ...POSTS]);
-        setPosts([...uniquePosts])
-    };
-
-    useEffect(() => getPosts(), []);
+    if ( loading ) return <ActivityIndicator/>;
+    if ( error ) return null;
+    if ( !data ) return null;
+    
+    const refetching = networkStatus === 4;
 
     const imageLiked = (liked: boolean) => {
         if (liked) {
@@ -85,17 +97,17 @@ const Home = () => {
             style={styles.cardStyle}                         
             onPress={() => {
                 navigation.navigate('FullScreenImage', {
-                    media: item.url
+                    media: item.fileurl
                 });
             }}
         >
-            <Card.Cover source={{ uri: item.url }} style={styles.image} />
+            <Card.Cover source={{ uri: item.fileurl }} style={styles.image} />
             <Card.Actions>
                 <TouchableOpacity>
                     { imageLiked(item.liked) }
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => openShareDialogAsync( item.url ) }
+                    onPress={() => openShareDialogAsync( item.fileurl ) }
                 >
                     <Ionicons name="share-outline" size={32} color="white"/>
                 </TouchableOpacity>
@@ -106,11 +118,13 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={posts}
+                data={data.allImages}
                 renderItem={renderPost}
-                keyExtractor={post => post.id}
-                onEndReached={getPosts}
+                keyExtractor={(item) => item.uploadedBy}
+                // onEndReached={loadMore}
                 onEndReachedThreshold={0.5}
+                refreshing={refetching}
+                onRefresh={() => refetch}
             />
         </SafeAreaView>
     );
