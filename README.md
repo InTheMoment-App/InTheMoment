@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/InTheMoment-App/InTheMoment/workflows/Lint/badge.svg)](https://github.com/InTheMoment-App/InTheMoment/actions)
+
 # InTheMoment
 An app to share pictures and videos anonymously. The content is automatically deleted if 
 they are not liked within a certain period of time.
