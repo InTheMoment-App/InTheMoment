@@ -1,6 +1,6 @@
 import { Camera } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
-import { Ionicons, Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as VideoThumbnails from 'expo-video-thumbnails';
@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
         top: 40,
         position: 'absolute',
     },
+    cameraFlash: {
+        flex: 0.1,
+        alignSelf: 'flex-start',
+        right: 5,
+        top: 100,
+        position: 'absolute',
+    },
     closeCamera: {
         flex: 1,
         alignSelf: 'flex-start',
@@ -60,6 +67,7 @@ const CameraScreen = () => {
     let camera: Camera;
     const navigation = useNavigation();
     const [type, setType] = useState(Camera.Constants.Type.back);
+    const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 
     useEffect(() => {
         (async () => {
@@ -90,6 +98,34 @@ const CameraScreen = () => {
         }
 
         setType(Camera.Constants.Type.back);
+    };
+
+    const changeFlash = () => {
+        switch(flash) {
+        case Camera.Constants.FlashMode.off:
+            setFlash(Camera.Constants.FlashMode.auto);
+            break;
+        case Camera.Constants.FlashMode.auto:
+            setFlash(Camera.Constants.FlashMode.on);
+            break;
+        case Camera.Constants.FlashMode.on:
+            setFlash(Camera.Constants.FlashMode.off);
+            break;
+        default: break;
+        }
+    };
+    
+    const flashIcon = () => {
+        switch(flash) {
+        case Camera.Constants.FlashMode.off:
+            return <MaterialIcons size={32} name="flash-off" color="white" />
+        case Camera.Constants.FlashMode.auto:
+            return <MaterialIcons size={32} name="flash-auto" color="white" />
+        case Camera.Constants.FlashMode.on:
+            return <MaterialIcons size={32} name="flash-on" color="white" />
+        default:
+            return <MaterialIcons size={32} name="flash-off" color="white" />
+        }
     };
 
     const takePicture = async () => {
@@ -135,6 +171,7 @@ const CameraScreen = () => {
             <Camera
                 style={styles.camera}
                 type={type}
+                flashMode={flash}
                 ref={(r) => {
                     camera = r;
                 }}
@@ -147,6 +184,14 @@ const CameraScreen = () => {
                         }}
                     >
                         <Ionicons size={32} name="md-camera-reverse" color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.buttonShadow, styles.cameraFlash]}
+                        onPress={() => {
+                            changeFlash();
+                        }}
+                    >
+                        { flashIcon() }
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonShadow, styles.closeCamera]}
