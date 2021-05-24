@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
+    "types": ["jest", "node"],
     "paths": {
       "assets": ["./assets"],
       "components": ["./components"],
