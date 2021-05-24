@@ -21,3 +21,5 @@ they are not liked within a certain period of time.
 - [Available Icons](https://icons.expo.fyi/)
 - [React Native Paper](https://callstack.github.io/react-native-paper/)
 - [React Navigation](https://reactnavigation.org/docs/getting-started)
+- [Jest Testing Framework](https://jestjs.io/docs/getting-started)
+- [React Native Testing Library](https://callstack.github.io/react-native-testing-library/docs/api)
