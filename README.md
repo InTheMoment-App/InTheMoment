@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/InTheMoment-App/InTheMoment/workflows/Continuous%Integration/badge.svg)](https://github.com/InTheMoment-App/InTheMoment/actions)
+[![Actions Status](https://github.com/InTheMoment-App/InTheMoment/workflows/Continuous%20Integration/badge.svg)](https://github.com/InTheMoment-App/InTheMoment/actions)
 
 # InTheMoment
 An app to share pictures and videos anonymously. The content is automatically deleted if 
