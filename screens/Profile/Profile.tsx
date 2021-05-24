@@ -1,35 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import {
     List, Avatar, Title, Paragraph,
 } from 'react-native-paper';
-import Layout from 'constants/Layout';
 import { View } from 'components/Themed';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    headerStyle: {
-        width: Layout.card.width,
-        height: Layout.card.height * 0.4,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 5,
-        borderRadius: 0,
-        overflow: 'hidden',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-});
+import styles from './styles';
 
 const Profile = () => 
     (

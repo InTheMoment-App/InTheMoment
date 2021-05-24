@@ -1,24 +1,9 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { Avatar, Card, Divider } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import { View } from 'components/Themed';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    chatContainerStyle: {
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
-    leftStyle: {
-        marginRight: 40,
-    },
-    rightStyle: {
-        marginRight: 20,
-    },
-});
+import styles from './styles';
 
 const Leaderboard = () => {
     const avatarIcon = (props : any, imageUrl: string, name: string) => {
