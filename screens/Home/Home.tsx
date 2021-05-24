@@ -42,12 +42,14 @@ const styles = StyleSheet.create({
 const POSTS = gql`
     query {
         allImages {
+            id
             fileurl
             datetime
             location
-            uploadedBy
+            author
             tags
             thumbnail
+            video
         }
     }
 `;
@@ -120,7 +122,7 @@ const Home = () => {
             <FlatList
                 data={data.allImages}
                 renderItem={renderPost}
-                keyExtractor={(item) => item.uploadedBy}
+                keyExtractor={(item) => item.id}
                 // onEndReached={loadMore}
                 onEndReachedThreshold={0.5}
                 refreshing={refetching}
