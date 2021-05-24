@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     Alert,
-    FlatList, 
-    StyleSheet, 
+    FlatList,
     SafeAreaView, 
     TouchableOpacity
 } from 'react-native';
@@ -12,32 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import { useQuery, gql } from '@apollo/client';
-
-import Layout from 'constants/Layout';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    cardStyle: {
-        width: Layout.card.width,
-        height: Layout.card.height,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 5,
-        borderRadius: 0,
-        overflow: 'hidden',
-    },
-    image: {
-        justifyContent: 'center',
-        width: Layout.card.image_width,
-        height: Layout.card.image_height,
-        borderRadius: 0,
-    },
-});
+import styles from './styles';
 
 const POSTS = gql`
     query {
