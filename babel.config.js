@@ -22,8 +22,9 @@ module.exports = api => {
             fixtures: './fixtures',
             hooks: './hooks',
             translations: './translations',
+            screens: './screens',
             types: './types',
-            screens: './screens'
+            utilities: './utilities'
           }
         }
       ]

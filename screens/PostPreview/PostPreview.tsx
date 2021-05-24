@@ -52,9 +52,11 @@ const PostPreview = ({route, navigation}) => {
                 style={styles.postButton}
                 icon="send"
                 label="post"
-                onPress={() => 
-                    navigation.navigate('Home')
-                }
+                onPress={() =>{
+                    navigation.navigate('Upload', {
+                        media
+                    });
+                }}
             />
         </View>
 
