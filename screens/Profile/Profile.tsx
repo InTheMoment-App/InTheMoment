@@ -46,7 +46,7 @@ const Profile = () =>
                         left={(props) => <List.Icon {...props} icon="logout" />}
                     />
                     <List.Item
-                        title="Delete Acount"
+                        title="Delete Account"
                         description="Permanently delete your account"
                         left={(props) => <List.Icon {...props} icon="delete" />}
                     />
