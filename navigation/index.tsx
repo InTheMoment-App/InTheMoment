@@ -8,6 +8,7 @@ import { RootStackParamList } from 'types';
 import CameraScreen from 'screens/Camera';
 import PostPreviewScreen from 'screens/PostPreview';
 import FullScreenImageScreen from 'screens/FullScreenImage';
+import uploadImage from 'screens/PostPreview/data/upload';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -32,6 +33,10 @@ function RootNavigator() {
             <RootStack.Screen
                 name="PostPreview"
                 component={PostPreviewScreen}
+            />
+            <RootStack.Screen
+                name="Upload"
+                component={uploadImage}
             />
             <RootStack.Screen
                 name="FullScreenImage"

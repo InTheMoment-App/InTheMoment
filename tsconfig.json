@@ -22,6 +22,7 @@
       "hooks": ["./hooks"],
       "translations": ["./translations"],
       "types": ["./types"],
+      "utilities": ["./utilities"],
       "screens": ["./screens"]
     }
   },

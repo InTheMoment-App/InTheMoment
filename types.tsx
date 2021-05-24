@@ -2,6 +2,7 @@ export type RootStackParamList = {
   BottomTab: undefined;
   Camera: undefined;
   PostPreview: undefined;
+  Upload: undefined;
   FullScreenImage: undefined;
   NotFound: undefined;
 };
