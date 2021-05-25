@@ -4,39 +4,35 @@ import {
     Avatar, Title, Paragraph,
 } from 'react-native-paper';
 import { View } from 'components/Themed';
-import styles from './styles';
 import POSTS from 'fixtures/posts'
+import styles from './styles';
 
-const Settings = ({route, navigation}) => {
+const Settings = ({navigation}) => {
 
-    const renderItem = ({item}) => {
-        return(
-            <TouchableOpacity 
-                style={styles.tileButton}
-                onPress={() => {
-                    navigation.navigate('FullScreenImage', {
-                        media: item.url
-                    });
-                }}
-            >
-                <Image 
-                    style={styles.thumbnail} 
-                    resizeMode='cover' 
-                    source={{ uri: item.url}}
-                />
-            </TouchableOpacity>
-        );
-    };
+    const renderItem = ({item}) => (
+        <TouchableOpacity 
+            style={styles.tileButton}
+            onPress={() => {
+                navigation.navigate('FullScreenImage', {
+                    media: item.url
+                });
+            }}
+        >
+            <Image 
+                style={styles.thumbnail} 
+                resizeMode='cover' 
+                source={{ uri: item.url}}
+            />
+        </TouchableOpacity>
+    );
 
-    const userInfo = () => {
-        return (
-            <View style={styles.headerStyle}>
-                <Avatar.Image size={104} source={{ uri: 'https://picsum.photos/1536/2048' }} />
-                <Title>Lorem Ipsum</Title>
-                <Paragraph>Account Score: 5250</Paragraph>
-            </View>
-        );
-    }
+    const userInfo = () => (
+        <View style={styles.headerStyle}>
+            <Avatar.Image size={104} source={{ uri: 'https://picsum.photos/1536/2048' }} />
+            <Title>Lorem Ipsum</Title>
+            <Paragraph>Account Score: 5250</Paragraph>
+        </View>
+    );
 
     return (
         <SafeAreaView style={styles.container}>
