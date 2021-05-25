@@ -22,7 +22,7 @@ const storeInDatabase = (title: string, url: string) => {
         video: false
     })
         .then( () => {
-           Alert.alert("Stored post information");
+            Alert.alert("Stored post information");
         })
         .catch((error) => {
             Alert.alert("Error adding document: ", error);
