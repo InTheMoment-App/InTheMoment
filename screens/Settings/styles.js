@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     settingsContainer: {
         flex: 1,
         width: Layout.card.width,
-        // height: Layout.card.height * 0.4,
         marginBottom: 5,
         overflow: 'hidden',
     },
