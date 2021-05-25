@@ -1,68 +1,89 @@
 import * as React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
-import { Avatar, Card, Divider } from 'react-native-paper';
-import { FontAwesome } from '@expo/vector-icons';
-import { View } from 'components/Themed';
+import { FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Title, List } from 'react-native-paper';
+import { Avatar, Colors } from 'react-native-ui-lib';
+import POSTS from 'fixtures/posts'
 import styles from './styles';
 
-const Leaderboard = () => {
-    const avatarIcon = (props : any, imageUrl: string, name: string) => {
-        if (imageUrl === '') {
-            const initial = name.charAt(0).toUpperCase();
-            return (
-                <Avatar.Text {...props} size={58} label={initial} />
-            );
-        }
+const Leaderboard = ({navigation}) => {
 
-        return (
-            <Avatar.Image {...props} size={58} source={{ uri: imageUrl }} />
-        );
+    const firstPlaceBadgeIconProps = {
+        label: 'LD',
+        size: 120,
+        backgroundColor: Colors.red60,
+        badgePosition: 'BOTTOM_RIGHT',
+        badgeProps: {
+            label: '1st',
+            size: 35,
+            borderWidth: 3,
+            borderColor: Colors.white, // make colors work better here
+            backgroundColor: Colors.green20,
+        }
     };
 
-    const messageIcon = (props : any, hasNewMessage : boolean) => {
-        if (hasNewMessage) {
-            return (
-                <FontAwesome {...props} name="circle" size={24} color="#506AD4" />
-            );
+    const regularRowBadgeIconProps = {
+        label: 'LD',
+        size: 50,
+        backgroundColor: Colors.red60,
+        badgePosition: 'BOTTOM_RIGHT',
+        badgeProps: {
+            label: '1st',
+            borderWidth: 1.2,
+            size: 'small',
+            borderColor: Colors.white, // make colors work better here
+            backgroundColor: Colors.blue20,
         }
-
-        return (<FontAwesome {...props} name="circle-thin" size={24} color="#e1e8ee" />);
     };
+
+    const firstPlace = () => (
+        <TouchableOpacity 
+            style={styles.headerStyle}
+            onPress={() => {
+                navigation.navigate('FullScreenImage', {
+                    media: 'https://picsum.photos/1536/2048'
+                });
+            }}
+        >
+            <Avatar
+                source={{ uri: 'https://picsum.photos/1536/2048'}}
+                {...firstPlaceBadgeIconProps}
+            />
+            <Title>Lorem Ipsum</Title>
+        </TouchableOpacity>
+    );
+
+    const regularRow = (url: string) => (
+        <Avatar
+            source={{ uri: 'https://picsum.photos/1536/2048'}}
+            {...regularRowBadgeIconProps}
+            onPress={() => {
+                navigation.navigate('FullScreenImage', {
+                    media: url
+                });
+            }}
+        />
+    );
+
+    const health = () => (
+        <Title>22</Title>
+    );
+
+    const renderItem = ({item}) => (
+        <List.Item
+            title={item.author}
+            left= {() => regularRow(item.url)}
+            right={health}
+        />
+    );
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList
-                data={[
-                    { key: 'Devi', image: 'https://picsum.photos/200/300', hasNewMessage: true },
-                    { key: 'Dan', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'Dominic', image: '', hasNewMessage: false },
-                    { key: 'Jackson', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'James', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'Joel', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'John', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'Jillian', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'Jimmy', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                    { key: 'Julie', image: 'https://picsum.photos/200/300', hasNewMessage: false },
-                ]}
-                renderItem={({ item }) => (
-                    <View>
-                        <View style={styles.chatContainerStyle}>
-                            <TouchableOpacity>
-                                <Card.Title
-                                    title={item.key}
-                                    subtitle="Card Subtitle"
-                                    left={(props) => avatarIcon(props, item.image, item.key)}
-                                    leftStyle={styles.leftStyle}
-                                    right={(props) => messageIcon(props, item.hasNewMessage)}
-                                    rightStyle={styles.rightStyle}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <Divider inset />
-                    </View>
-                )}
+                data={POSTS}
+                renderItem={renderItem}
+                ListHeaderComponent={firstPlace}
             />
-        </View>
+        </SafeAreaView>
     );
 }
 
