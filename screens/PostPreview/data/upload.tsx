@@ -1,4 +1,4 @@
-import { firebase, storage } from 'utilities/firebase';
+import { firebase, firestore, storage } from 'utilities/firebase';
 import uuid from 'react-native-uuid';
 import React, { useState, useEffect } from 'react';
 import { Alert, SafeAreaView } from 'react-native';
@@ -9,8 +9,29 @@ const IMAGE_DIR = 'posts/images/';
 
 const bucketFilename = () => uuid.v4();
 
+const storeInDatabase = (title: string, url: string) => {
+    const posts = firestore.collection('posts');
+    posts.add({
+        title,
+        url,
+        uploaded_at: new Date().toISOString(),
+        location: "here",
+        author: "test",
+        tags: "example,tags",
+        thumbnail: null,
+        video: false
+    })
+        .then( () => {
+            Alert.alert("Stored post information");
+        })
+        .catch((error) => {
+            Alert.alert("Error adding document: ", error);
+        });
+
+};
+
 const uploadImage = ({route, navigation}) => {
-    const { media } = route.params;
+    const { title, media } = route.params;
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -36,7 +57,6 @@ const uploadImage = ({route, navigation}) => {
                     }
                 }, 
                 (error : any) => {
-                    // A full list of error codes is available at
                     // https://firebase.google.com/docs/storage/web/handle-errors
                     switch (error.code) {
                         case 'storage/unauthorized':
@@ -53,7 +73,7 @@ const uploadImage = ({route, navigation}) => {
                 }, 
                 () => {
                     upload.snapshot.ref.getDownloadURL().then((downloadURL : any) => {
-                        Alert.alert(downloadURL);
+                        storeInDatabase(title, downloadURL);
                         navigation.navigate('Home');
                     });
                 }
