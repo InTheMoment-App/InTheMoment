@@ -16,9 +16,9 @@ export default {
                             BottomTabNavigator: '',
                         },
                     },
-                    Discover: {
+                    Profile: {
                         screens: {
-                            DiscoverScreen: '',
+                            ProfileScreen: '',
                         },
                     },
                     Camera: {
@@ -41,9 +41,9 @@ export default {
                             PostPreviewScreen: '',
                         }
                     },
-                    Profile: {
+                    Settings: {
                         screens: {
-                            ProfileScreen: '',
+                            SettingsScreen: '',
                         },
                     },
                 },
