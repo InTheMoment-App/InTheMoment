@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { ScrollView } from 'react-native';
-import { List } from 'react-native-paper';
-import { View } from 'components/Themed';
+import React from 'react';
+import { View, SafeAreaView, ScrollView } from 'react-native';
+import { List, Caption } from 'react-native-paper';
 import styles from './styles';
 
-const Settings = () => 
-    (
-        <View style={styles.container}>
-            <ScrollView style={styles.headerStyle}>
+const Settings = () => {
+    return (
+        <SafeAreaView style={styles.container}>
+            <ScrollView style={styles.settingsContainer}>
                 <List.Section>
                     <List.Item
                         title="General"
@@ -44,8 +43,9 @@ const Settings = () =>
                     />
                 </List.Section>
             </ScrollView>
-        </View>
-    )
+        </SafeAreaView>
+    );
+};
 
 
-export default Settings;
+export default React.memo(Settings);

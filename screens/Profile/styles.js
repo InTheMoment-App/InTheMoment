@@ -4,7 +4,7 @@ import Layout from 'constants/Layout';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        justifyContent: 'center',
     },
     headerStyle: {
         width: Layout.card.width,
@@ -15,14 +15,17 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         overflow: 'hidden',
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
+    tileButton: {
+        flex: 1/3,
+        aspectRatio: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
+    thumbnail: {
+        width: Layout.tiles.width, 
+        height: Layout.tiles.width,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

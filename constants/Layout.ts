@@ -14,5 +14,8 @@ export default {
         image_width: width,
         image_height: height * 0.7 * 0.92,
     },
+    tiles: {
+        width: (width * 0.97) / 3, // 3 is the number of columns
+    },
     isSmallDevice: width < 375,
 };

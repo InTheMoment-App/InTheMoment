@@ -6,23 +6,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    headerStyle: {
+    settingsContainer: {
+        flex: 1,
         width: Layout.card.width,
-        height: Layout.card.height * 0.4,
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        // height: Layout.card.height * 0.4,
         marginBottom: 5,
-        borderRadius: 0,
         overflow: 'hidden',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
 });
 
