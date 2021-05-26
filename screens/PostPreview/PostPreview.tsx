@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, Text, ScrollView } from 'react-native';
-import { Appbar, FAB, } from 'react-native-paper';
+import { Appbar, FAB } from 'react-native-paper';
 import { Card, ChipsInput, TextField } from 'react-native-ui-lib';
 import styles from './styles';
 
