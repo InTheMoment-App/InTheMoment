@@ -1,25 +1,32 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from 'react-native-ui-lib'
-import Layout from 'constants/Layout';
+import Layout from 'constants/Layout'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
     },
     loginContainer: {
         flex: 1,
-        // justifyContent: 'center',
-        alignSelf: 'stretch',
-        paddingHorizontal: 10,
+        justifyContent: 'center',
+        width: Layout.window.width * 0.9,
     },
     loginButton: {
         color: 'white',
         backgroundColor: Colors.blue20,
-        marginBottom: 10,
+        marginBottom: 40,
+        alignSelf: 'stretch',
     },
-    registerButton: {
-        color: 'white',
-        backgroundColor: Colors.green20,
+    registerBlock: {
+        flexDirection: 'row', 
+        justifyContent: 'center',
+    },
+    signUpText: {
+        fontWeight: 'bold'
+    },
+    forgotPassword: {
+        alignSelf: 'center',
     }
 });
 

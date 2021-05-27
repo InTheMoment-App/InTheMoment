@@ -20,11 +20,12 @@ export const create = (email: string, password: string) => {
         });
 };
 
-export const login = (email: string, password: string) => {
+export const login = (email: string, password: string) : boolean => {
     auth
         .signInWithEmailAndPassword(email, password)
         .then(() => {
             console.log('User account signed in!');
+            return true;
         })
         .catch(error => {
             // if (error.code === 'auth/email-already-in-use') {
@@ -37,6 +38,7 @@ export const login = (email: string, password: string) => {
             console.log(error.code);
             console.error(error);
         });
+        return false;
 };
 
 

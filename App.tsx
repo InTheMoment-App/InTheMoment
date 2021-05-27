@@ -35,9 +35,9 @@ export default function App() {
     }
 
     // if (!user) {
-        return (
-            <Login/>
-        );
+    return (
+        <Login/>
+    );
     // }
 
     console.log(user.uid);
