@@ -1,30 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import { ApolloProvider } from '@apollo/client/react';
+
 import { Provider as PaperProvider } from 'react-native-paper';
+import { auth } from 'utilities/firebase';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import { LoggedOutNav, LoggedInNav } from './navigation';
 
 import client from './components/GraphQLService';
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
+    const [authInitializing, setAuthInitializing] = useState(false);
+    const [user, setUser] = useState();
 
-    if (!isLoadingComplete) {
+    function onAuthStateChanged(userObject : any) {
+        setUser(userObject);
+        if (authInitializing) setAuthInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+        return subscriber;
+    }, []);
+
+    if (!isLoadingComplete || authInitializing) {
         return null;
     }
+
     return (
-        <ApolloProvider client={client}>
-            <PaperProvider>
-                <SafeAreaProvider>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
-                </SafeAreaProvider>
-            </PaperProvider>
-        </ApolloProvider>
+        <PaperProvider>
+            <SafeAreaProvider>
+                { user == null ? (
+                    <LoggedOutNav colorScheme={colorScheme} />
+                ): (
+                    <ApolloProvider client={client}>
+                        <LoggedInNav colorScheme={colorScheme} />
+                        <StatusBar />
+                    </ApolloProvider>
+                )}
+            </SafeAreaProvider>
+        </PaperProvider>
     );
 }

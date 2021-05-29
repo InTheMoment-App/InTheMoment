@@ -1,3 +1,9 @@
+export type LoggedOutParamList = { 
+  Login: undefined;
+  Register: undefined;
+  ForgotPassword: undefined;
+};
+
 export type RootStackParamList = {
   BottomTab: undefined;
   Camera: undefined;

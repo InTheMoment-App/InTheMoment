@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 /* eslint-disable import/no-duplicates */
 import 'firebase/storage';
 import 'firebase/firestore';
+import 'firebase/auth';
 /* eslint-enable import/no-duplicates */
 
 if ( !firebase.apps.length ){
@@ -16,3 +17,4 @@ if ( !firebase.apps.length ){
 export { firebase };
 export const storage = firebase.storage();
 export const firestore = firebase.firestore();
+export const auth = firebase.auth();

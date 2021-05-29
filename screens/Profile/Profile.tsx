@@ -7,7 +7,7 @@ import { View } from 'components/Themed';
 import POSTS from 'fixtures/posts'
 import styles from './styles';
 
-const Settings = ({navigation}) => {
+const Profile = ({navigation}) => {
 
     const renderItem = ({item}) => (
         <TouchableOpacity 
@@ -48,4 +48,4 @@ const Settings = ({navigation}) => {
 }
 
 
-export default Settings;
+export default Profile;
