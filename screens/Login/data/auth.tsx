@@ -15,8 +15,6 @@ export const create = async (email: string, password: string) : Promise<boolean>
             Alert.alert('That email address is invalid!');
         }
 
-        console.error(error);
-
         return false;
     }
 };
@@ -34,8 +32,6 @@ export const login = async (email: string, password: string) : Promise<boolean> 
         if (error.code === 'auth/invalid-email') {
             Alert.alert('That email address is invalid!');
         }
-
-        console.error(error);
 
         return false;
     }
