@@ -15,7 +15,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 /* eslint-enable import/no-duplicates */
 
-let initialSetup = !firebase.apps.length;
+const initialSetup = !firebase.apps.length;
 
 if ( initialSetup ) {
     if ( devEnvironment )
@@ -24,9 +24,9 @@ if ( initialSetup ) {
         firebase.initializeApp(firebaseConfig);
 }
 
-let fbAuth = firebase.auth();
-let fbFirestore = firebase.firestore();
-let fbStorage = firebase.storage();
+const fbAuth = firebase.auth();
+const fbFirestore = firebase.firestore();
+const fbStorage = firebase.storage();
 
 if ( initialSetup && devEnvironment ) {
     const origin = Constants.manifest.debuggerHost?.split(":").shift() || "localhost";
