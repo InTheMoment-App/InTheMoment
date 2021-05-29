@@ -1,31 +1,38 @@
+export type LoggedOutParamList = { 
+  Login: undefined;
+  Register: undefined;
+  ForgotPassword: undefined;
+};
+
 export type RootStackParamList = {
   BottomTab: undefined;
   Camera: undefined;
   PostPreview: undefined;
+  Upload: undefined;
   FullScreenImage: undefined;
   NotFound: undefined;
 };
 
 export type BottomTabParamList = {
   Home: undefined;
-  Discover: undefined;
+  Profile: undefined;
   CameraPlaceholder: undefined;
   Leaderboard: undefined;
-  Profile: undefined;
+  Settings: undefined;
 };
 
 export type HomeParamList = {
   HomeScreen: undefined;
 };
 
-export type DiscoverParamList = {
-  DiscoverScreen: undefined;
+export type ProfileParamList = {
+  ProfileScreen: undefined;
 }
 
 export type LeaderboardParamList = {
   LeaderboardScreen: undefined;
 };
 
-export type ProfileParamList = {
-  ProfileScreen: undefined;
+export type SettingsParamList = {
+  SettingsScreen: undefined;
 };

@@ -6,12 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from 'screens/Home';
 import LeaderboardScreen from 'screens/Leaderboard';
+import SettingsScreen from 'screens/Settings';
 import ProfileScreen from 'screens/Profile';
-import DiscoverScreen from 'screens/Discover';
 import Colors from 'constants/Colors';
 import useColorScheme from 'hooks/useColorScheme';
 import {
-    BottomTabParamList, HomeParamList, LeaderboardParamList, ProfileParamList, DiscoverParamList,
+    BottomTabParamList, HomeParamList, LeaderboardParamList, SettingsParamList, ProfileParamList,
 } from 'types';
 
 import i18n from 'translations/Translate';
@@ -33,16 +33,16 @@ function HomeNavigator() {
     );
 }
 
-const DiscoverStack = createStackNavigator<DiscoverParamList>();
-function DiscoverNavigator() {
+const ProfileStack = createStackNavigator<ProfileParamList>();
+function ProfileNavigator() {
     return (
-        <DiscoverStack.Navigator>
-            <DiscoverStack.Screen
-                name="DiscoverScreen"
-                component={DiscoverScreen}
-                options={{ headerTitle: i18n.t('discover'), headerTitleAlign: 'left' }}
+        <ProfileStack.Navigator>
+            <ProfileStack.Screen
+                name="ProfileScreen"
+                component={ProfileScreen}
+                options={{ headerTitle: i18n.t('profile'), headerTitleAlign: 'left' }}
             />
-        </DiscoverStack.Navigator>
+        </ProfileStack.Navigator>
     );
 }
 
@@ -59,16 +59,16 @@ function LeaderboardNavigator() {
     );
 }
 
-const ProfileStack = createStackNavigator<ProfileParamList>();
-function ProfileNavigator() {
+const SettingsStack = createStackNavigator<SettingsParamList>();
+function SettingsNavigator() {
     return (
-        <ProfileStack.Navigator>
-            <ProfileStack.Screen
-                name="ProfileScreen"
-                component={ProfileScreen}
-                options={{ headerTitle: i18n.t('profile'), headerTitleAlign: 'left' }}
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen
+                name="SettingsScreen"
+                component={SettingsScreen}
+                options={{ headerTitle: i18n.t('settings'), headerTitleAlign: 'left' }}
             />
-        </ProfileStack.Navigator>
+        </SettingsStack.Navigator>
     );
 }
 
@@ -95,10 +95,10 @@ export default function BottomTabNavigator() {
                 }}
             />
             <BottomTabs.Screen
-                name="Discover"
-                component={DiscoverNavigator}
+                name="Leaderboard"
+                component={LeaderboardNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="compass" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="podium" color={color} />,
                 }}
             />
             <BottomTabs.Screen
@@ -115,17 +115,17 @@ export default function BottomTabNavigator() {
                 })}
             />
             <BottomTabs.Screen
-                name="Leaderboard"
-                component={LeaderboardNavigator}
-                options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="podium" color={color} />,
-                }}
-            />
-            <BottomTabs.Screen
                 name="Profile"
                 component={ProfileNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="person-circle" color={color} />,
+                }}
+            />
+            <BottomTabs.Screen
+                name="Settings"
+                component={SettingsNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="settings-sharp" color={color} />,
                 }}
             />
         </BottomTabs.Navigator>

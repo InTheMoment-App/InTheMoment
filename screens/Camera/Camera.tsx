@@ -48,29 +48,29 @@ const CameraScreen = () => {
 
     const changeFlash = () => {
         switch(flash) {
-        case Camera.Constants.FlashMode.off:
-            setFlash(Camera.Constants.FlashMode.auto);
-            break;
-        case Camera.Constants.FlashMode.auto:
-            setFlash(Camera.Constants.FlashMode.on);
-            break;
-        case Camera.Constants.FlashMode.on:
-            setFlash(Camera.Constants.FlashMode.off);
-            break;
-        default: break;
+            case Camera.Constants.FlashMode.off:
+                setFlash(Camera.Constants.FlashMode.auto);
+                break;
+            case Camera.Constants.FlashMode.auto:
+                setFlash(Camera.Constants.FlashMode.on);
+                break;
+            case Camera.Constants.FlashMode.on:
+                setFlash(Camera.Constants.FlashMode.off);
+                break;
+            default: break;
         }
     };
     
     const flashIcon = () => {
         switch(flash) {
-        case Camera.Constants.FlashMode.off:
-            return <MaterialIcons size={32} name="flash-off" color="white" />
-        case Camera.Constants.FlashMode.auto:
-            return <MaterialIcons size={32} name="flash-auto" color="white" />
-        case Camera.Constants.FlashMode.on:
-            return <MaterialIcons size={32} name="flash-on" color="white" />
-        default:
-            return <MaterialIcons size={32} name="flash-off" color="white" />
+            case Camera.Constants.FlashMode.off:
+                return <MaterialIcons size={32} name="flash-off" color="white" />
+            case Camera.Constants.FlashMode.auto:
+                return <MaterialIcons size={32} name="flash-auto" color="white" />
+            case Camera.Constants.FlashMode.on:
+                return <MaterialIcons size={32} name="flash-on" color="white" />
+            default:
+                return <MaterialIcons size={32} name="flash-off" color="white" />
         }
     };
 

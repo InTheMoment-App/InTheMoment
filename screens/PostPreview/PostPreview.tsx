@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, ScrollView } from 'react-native';
-import { Appbar, FAB, } from 'react-native-paper';
-import { Card, TextField, ChipsInput } from 'react-native-ui-lib';
+import { Appbar, FAB } from 'react-native-paper';
+import { Card, ChipsInput, TextField } from 'react-native-ui-lib';
 import styles from './styles';
 
 const PostPreview = ({route, navigation}) => {
+    const [title, setTitle] = useState('');
     const { media } = route.params;
 
     const chips = {
@@ -26,6 +27,7 @@ const PostPreview = ({route, navigation}) => {
                             <Text>Title Your Masterpiece</Text>
                             <TextField
                                 maxLength={50}
+                                onChangeText={ t => setTitle(t)}
                             />
                         </View>
                         <View>
@@ -52,9 +54,12 @@ const PostPreview = ({route, navigation}) => {
                 style={styles.postButton}
                 icon="send"
                 label="post"
-                onPress={() => 
-                    navigation.navigate('Home')
-                }
+                onPress={() =>{
+                    navigation.navigate('Upload', {
+                        title,
+                        media
+                    });
+                }}
             />
         </View>
 
