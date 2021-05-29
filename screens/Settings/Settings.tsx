@@ -4,7 +4,7 @@ import { List } from 'react-native-paper';
 import { auth } from 'utilities/firebase';
 import styles from './styles';
 
-const Settings = () =>{
+const Settings = () => {
 
     const signOut = () => {
         auth
@@ -47,6 +47,7 @@ const Settings = () =>{
                         title="Logout"
                         description="Logout of your account."
                         left={(props) => <List.Icon {...props} icon="logout" />}
+                        onPress={signOut}
                     />
                     <List.Item
                         title="Delete Account"

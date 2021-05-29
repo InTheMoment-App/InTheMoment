@@ -5,14 +5,11 @@ import { ApolloProvider } from '@apollo/client/react';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import { auth } from 'utilities/firebase';
-import Login from 'screens/Login';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import { LoggedOutNav, LoggedInNav } from './navigation';
 
 import client from './components/GraphQLService';
-
-// TEMP
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -27,29 +24,25 @@ export default function App() {
 
     useEffect(() => {
         const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
+        return subscriber;
     }, []);
 
     if (!isLoadingComplete || authInitializing) {
         return null;
     }
 
-    // if (!user) {
     return (
-        <Login/>
-    );
-    // }
-
-    console.log(user.uid);
-
-    return (
-        <ApolloProvider client={client}>
-            <PaperProvider>
-                <SafeAreaProvider>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
-                </SafeAreaProvider>
-            </PaperProvider>
-        </ApolloProvider>
+        <PaperProvider>
+            <SafeAreaProvider>
+                { user == null ? (
+                    <LoggedOutNav colorScheme={colorScheme} />
+                ): (
+                    <ApolloProvider client={client}>
+                        <LoggedInNav colorScheme={colorScheme} />
+                        <StatusBar />
+                    </ApolloProvider>
+                )}
+            </SafeAreaProvider>
+        </PaperProvider>
     );
 }

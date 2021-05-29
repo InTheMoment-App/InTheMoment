@@ -7,22 +7,22 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    loginContainer: {
+    notLoggedInContainer: {
         flex: 1,
         justifyContent: 'center',
         width: Layout.window.width * 0.9,
     },
-    loginButton: {
+    mainButton: {
         color: 'white',
         backgroundColor: Colors.blue20,
         marginBottom: 40,
         alignSelf: 'stretch',
     },
-    registerBlock: {
+    altActionBlock: {
         flexDirection: 'row', 
         justifyContent: 'center',
     },
-    signUpText: {
+    boldedLink: {
         fontWeight: 'bold'
     },
     forgotPassword: {

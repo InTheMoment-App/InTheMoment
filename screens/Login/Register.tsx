@@ -9,39 +9,53 @@ import {
 import { Text, FAB } from 'react-native-paper';
 import { TextField } from 'react-native-ui-lib';
 import validator from 'validator';
-import { login } from './data/auth';
+import { create } from './data/auth';
 import styles from './styles';
 
-const Login = ({navigation}) => {
+const Register = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confPassword, setConfPassword] = useState('');
 
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [confPasswordError, setConfPasswordError] = useState('');
 
-    const validateFieldsAndLogin = async() => {
+    const passwordsMatch = () => {
+        return password.localeCompare(confPassword) == 0;
+    };
+
+    const validateFieldsAndCreateAccount = async() => {
         let threwError = false;
 
         if (!validator.isEmail(email)){
-            setEmailError('Invalid Email');
+            setEmailError('Invalid email');
             threwError = true;
         }
 
-        if (validator.isEmpty(password)){
-            setPasswordError('Empty Password');
+        /*
+         we will add a password strength mechanic later, this performs it but doesn't display it
+         minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
+        */
+        if (!validator.isStrongPassword(password)){
+            setPasswordError('Password is not strong enough');
+            threwError = true;
+        }
+
+        if (!passwordsMatch){
+            setConfPasswordError('Passwords do not match');
             threwError = true;
         }
 
         if ( threwError )
             return;
         
-       let success = await login(email, password);
+       const success = await create(email, password);
 
        if (!success){
            console.log("woops error didn't log in");
            Keyboard.dismiss();
        }
-
     };
 
     return (
@@ -65,34 +79,32 @@ const Login = ({navigation}) => {
                             error={passwordError}
                             secureTextEntry
                         />
+                        <TextField
+                            maxLength={64}
+                            onChangeText={ pass => setConfPassword(pass)}
+                            title="CONFIRM PASSWORD"
+                            error={confPasswordError}
+                            secureTextEntry
+                        />
                         <FAB
                             style={styles.mainButton}
-                            label="Login"
+                            label="Register"
                             onPress={() =>{
                                 Keyboard.dismiss();
-                                validateFieldsAndLogin();
+                                validateFieldsAndCreateAccount();
                             }}
                         />
                         <View style={styles.altActionBlock}>
-                            <Text>Don't have an account? </Text>
+                            <Text>Already have an account? </Text>
                             <TouchableOpacity
                                 onPress={() =>{
-                                    navigation.navigate('Register');
+                                    navigation.navigate('Login');
                                 }}
                             >
-                                <Text style={styles.boldedLink}>Sign Up Now</Text>
+                                <Text style={styles.boldedLink}>Login Now</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
-                    <TouchableOpacity
-                        onPress={() =>{
-                            navigation.navigate('ForgotPassword')
-                        }}
-                        style={ styles.forgotPassword }
-                    >
-                        <Text style={styles.boldedLink}>Forgot Password?</Text>
-                    </TouchableOpacity>
                 </View>
 
             </TouchableWithoutFeedback>
@@ -101,4 +113,4 @@ const Login = ({navigation}) => {
 }
 
 
-export default React.memo(Login);
+export default React.memo(Register);

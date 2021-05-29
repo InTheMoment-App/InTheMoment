@@ -9,17 +9,14 @@ import {
 import { Text, FAB } from 'react-native-paper';
 import { TextField } from 'react-native-ui-lib';
 import validator from 'validator';
-import { login } from './data/auth';
+import { passwordReset } from './data/auth';
 import styles from './styles';
 
-const Login = ({navigation}) => {
+const ForgotPassword = ({navigation}) => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
 
-    const validateFieldsAndLogin = async() => {
+    const validateFieldAndReset = () => {
         let threwError = false;
 
         if (!validator.isEmail(email)){
@@ -27,19 +24,13 @@ const Login = ({navigation}) => {
             threwError = true;
         }
 
-        if (validator.isEmpty(password)){
-            setPasswordError('Empty Password');
-            threwError = true;
-        }
-
         if ( threwError )
             return;
         
-       let success = await login(email, password);
+       let success = passwordReset(email);
 
        if (!success){
-           console.log("woops error didn't log in");
-           Keyboard.dismiss();
+           console.log("woops could not send the password reset email");
        }
 
     };
@@ -53,46 +44,30 @@ const Login = ({navigation}) => {
                 <View>
                     <View style={styles.notLoggedInContainer}>
                         <TextField
-                            maxLength={120}
+                            maxLength={64}
                             onChangeText={ e => setEmail(e)}
                             title="EMAIL ADDRESS"
                             error={emailError}
                         />
-                        <TextField
-                            maxLength={64}
-                            onChangeText={ pass => setPassword(pass)}
-                            title="PASSWORD"
-                            error={passwordError}
-                            secureTextEntry
-                        />
                         <FAB
                             style={styles.mainButton}
-                            label="Login"
+                            label="Reset Password"
                             onPress={() =>{
                                 Keyboard.dismiss();
-                                validateFieldsAndLogin();
+                                validateFieldAndReset();
                             }}
                         />
                         <View style={styles.altActionBlock}>
-                            <Text>Don't have an account? </Text>
                             <TouchableOpacity
                                 onPress={() =>{
-                                    navigation.navigate('Register');
+                                    navigation.navigate('Login');
                                 }}
                             >
-                                <Text style={styles.boldedLink}>Sign Up Now</Text>
+                                <Text style={styles.boldedLink}>Back To Login</Text>
                             </TouchableOpacity>
                         </View>
 
                     </View>
-                    <TouchableOpacity
-                        onPress={() =>{
-                            navigation.navigate('ForgotPassword')
-                        }}
-                        style={ styles.forgotPassword }
-                    >
-                        <Text style={styles.boldedLink}>Forgot Password?</Text>
-                    </TouchableOpacity>
                 </View>
 
             </TouchableWithoutFeedback>
@@ -101,4 +76,4 @@ const Login = ({navigation}) => {
 }
 
 
-export default React.memo(Login);
+export default React.memo(ForgotPassword);
