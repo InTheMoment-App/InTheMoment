@@ -27,6 +27,8 @@
     "@react-navigation/native": "~5.9.4",
     "@react-navigation/stack": "~5.14.5",
     "@testing-library/react-native": "^7.2.0",
+    "@types/react": "~17.0.6",
+    "@types/react-native": "~0.64.5",
     "expo": "~41.0.1",
     "expo-asset": "^8.3.2",
     "expo-camera": "~11.0.3",
@@ -64,8 +66,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@types/jest": "^26.0.23",
-    "@types/react": "~17.0.6",
-    "@types/react-native": "~0.64.5",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
