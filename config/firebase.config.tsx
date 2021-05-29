@@ -1,4 +1,6 @@
-const firebaseConfig = {
+import { DEV } from '@env';
+
+export const firebaseConfig = {
     apiKey: "AIzaSyDtxk6vsP5I2b-m31wW8K1sryH5tbRLQHU",
     authDomain: "inthemoment-4e008.firebaseapp.com",
     projectId: "inthemoment-4e008",
@@ -8,4 +10,11 @@ const firebaseConfig = {
     measurementId: "G-0PWKSTJ7NM"
 };
 
-export default firebaseConfig;
+export const firebaseDevConfig = {
+    apiKey: "89654cf6-83f2-4073-90bd-e6e32207b066U",
+    projectId: "inthemoment-4e008",
+    storageBucket: "default-bucket"
+};
+
+export const devEnvironment = DEV;
+
