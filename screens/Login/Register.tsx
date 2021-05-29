@@ -21,9 +21,7 @@ const Register = ({navigation}) => {
     const [passwordError, setPasswordError] = useState('');
     const [confPasswordError, setConfPasswordError] = useState('');
 
-    const passwordsMatch = () => {
-        return password.localeCompare(confPassword) == 0;
-    };
+    const passwordsMatch = () => password.localeCompare(confPassword) === 0;
 
     const validateFieldsAndCreateAccount = async() => {
         let threwError = false;
@@ -50,12 +48,11 @@ const Register = ({navigation}) => {
         if ( threwError )
             return;
         
-       const success = await create(email, password);
+        const success = await create(email, password);
 
-       if (!success){
-           console.log("woops error didn't log in");
-           Keyboard.dismiss();
-       }
+        if (!success){
+            // console.log("woops error didn't log in");
+        }
     };
 
     return (

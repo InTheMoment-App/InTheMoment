@@ -27,11 +27,11 @@ const ForgotPassword = ({navigation}) => {
         if ( threwError )
             return;
         
-       let success = passwordReset(email);
+        const success = passwordReset(email);
 
-       if (!success){
-           console.log("woops could not send the password reset email");
-       }
+        if (!success){
+            // console.log("woops could not send the password reset email");
+        }
 
     };
 

@@ -35,12 +35,11 @@ const Login = ({navigation}) => {
         if ( threwError )
             return;
         
-       let success = await login(email, password);
+        const success = await login(email, password);
 
-       if (!success){
-           console.log("woops error didn't log in");
-           Keyboard.dismiss();
-       }
+        if (!success){
+            // console.log("woops error didn't log in");
+        }
 
     };
 
@@ -74,7 +73,7 @@ const Login = ({navigation}) => {
                             }}
                         />
                         <View style={styles.altActionBlock}>
-                            <Text>Don't have an account? </Text>
+                            <Text>Don&apos;t have an account? </Text>
                             <TouchableOpacity
                                 onPress={() =>{
                                     navigation.navigate('Register');

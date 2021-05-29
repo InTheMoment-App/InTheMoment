@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { Alert, SafeAreaView, ScrollView } from 'react-native';
 import { List } from 'react-native-paper';
 import { auth } from 'utilities/firebase';
 import styles from './styles';
@@ -10,9 +10,10 @@ const Settings = () => {
         auth
             .signOut()
             .then(() =>
-                console.log(' user signed out ')
+                // console.log(' user signed out ')
+                Alert.alert('user signed out')
             ).catch( error => {
-                console.error(error);
+                Alert.alert(error);
             });
     };
 
