@@ -10,8 +10,8 @@ const IMAGE_DIR = 'posts/images/';
 
 const bucketFilename = () => uuid.v4();
 
-const storeInDatabase = (title: string, url: string, uuid: string) => {
-    const posts = firestore.collection('posts').doc(uuid).collection('alive').doc(bucketFilename());
+const storeInDatabase = (title: string, url: string, uid: string) => {
+    const posts = firestore.collection('posts').doc(uid).collection('alive').doc(bucketFilename());
     posts.set({
         title,
         url,
@@ -26,7 +26,6 @@ const storeInDatabase = (title: string, url: string, uuid: string) => {
             Alert.alert("Stored post information");
         })
         .catch((error) => {
-            console.log(error);
             Alert.alert("Error adding document: ", error);
         });
 

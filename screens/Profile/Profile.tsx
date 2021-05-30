@@ -5,8 +5,8 @@ import {
 } from 'react-native-paper';
 import { View } from 'components/Themed';
 import POSTS from 'fixtures/posts'
-import styles from './styles';
 import UserContext from 'utilities/userContext';
+import styles from './styles';
 
 const Profile = ({navigation}) => {
     const renderItem = ({item}) => (
