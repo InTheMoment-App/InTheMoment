@@ -10,6 +10,7 @@ import { ApolloProvider } from '@apollo/client/react';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import { auth } from 'utilities/firebase';
+import UserContext from 'utilities/userContext';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import { LoggedOutNav, LoggedInNav } from './navigation';
@@ -20,7 +21,7 @@ export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
     const [authInitializing, setAuthInitializing] = useState(false);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState( {} );
 
     function onAuthStateChanged(userObject : any) {
         setUser(userObject);
@@ -42,10 +43,12 @@ export default function App() {
                 { user == null ? (
                     <LoggedOutNav colorScheme={colorScheme} />
                 ): (
-                    <ApolloProvider client={client}>
-                        <LoggedInNav colorScheme={colorScheme} />
-                        <StatusBar />
-                    </ApolloProvider>
+                    <UserContext.Provider value={user}>
+                        <ApolloProvider client={client}>
+                            <LoggedInNav colorScheme={colorScheme} />
+                            <StatusBar />
+                        </ApolloProvider>
+                    </UserContext.Provider>
                 )}
             </SafeAreaProvider>
         </PaperProvider>
