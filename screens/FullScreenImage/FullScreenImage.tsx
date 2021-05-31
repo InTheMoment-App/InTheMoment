@@ -14,7 +14,7 @@ const FullScreenImage = ({route, navigation}) => {
             <ImageZoom 
                 cropWidth={Layout.window.width}
                 cropHeight={Layout.window.height}
-                imageWidth={200}
+                imageWidth={Layout.window.width}
                 imageHeight={200}
                 style={{backgroundColor: 'black'}}
                 doubleClickInterval={500}
@@ -25,7 +25,7 @@ const FullScreenImage = ({route, navigation}) => {
                 }}
             >
                 <CachedImage 
-                    style={{width:200, height:200}}
+                    style={{width:Layout.window.width, height:200}}
                     source={{uri: media}}
                 />
             </ImageZoom>
