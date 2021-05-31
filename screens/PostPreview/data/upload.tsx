@@ -11,7 +11,12 @@ const IMAGE_DIR = 'posts/images/';
 const bucketFilename = () => uuid.v4();
 
 const storeInDatabase = (title: string, url: string, uid: string) => {
-    const posts = firestore.collection('posts').doc(uid).collection('alive').doc(bucketFilename());
+    const posts = firestore
+        .collection('posts')
+        .doc(uid)
+        .collection('alive')
+        .doc(bucketFilename());
+
     posts.set({
         title,
         url,
@@ -40,7 +45,7 @@ const uploadImage = ({route, navigation}) => {
         ( async() => {
             const response  = await fetch(media);
             const blob = await response.blob();
-        
+
             const upload = storage
                 .ref()
                 .child(IMAGE_DIR + bucketFilename())
