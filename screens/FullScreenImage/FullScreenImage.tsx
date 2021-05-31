@@ -1,35 +1,37 @@
 import React from 'react';
 import { Modal } from 'react-native';
-import ImageViewer from 'react-native-image-zoom-viewer';
-import { ActivityIndicator } from 'react-native-paper'
+import ImageZoom from 'react-native-image-pan-zoom';
+import CachedImage from 'react-native-expo-cached-image';
 import CloseModalButton from 'components/CloseModalButton';
+import Layout from 'constants/Layout';
 
 const FullScreenImage = ({route, navigation}) => {
     const { media } = route.params;
 
-    const images = [{
-        url: media,
-        props: {}
-    }]
-
     return (
         <Modal visible transparent>
-            <ImageViewer
-                enableSwipeDown
-                imageUrls={images}
-                swipeDownThreshold={5}
+            <CloseModalButton/>
+            <ImageZoom 
+                cropWidth={Layout.window.width}
+                cropHeight={Layout.window.height}
+                imageWidth={200}
+                imageHeight={200}
+                style={{backgroundColor: 'black'}}
                 doubleClickInterval={500}
+                enableSwipeDown
+                swipeDownThreshold={5}
                 onSwipeDown={() => {
                     navigation.goBack();
                 }}
-                saveToLocalByLongPress={false}
-                renderIndicator={() => null as any}
-                loadingRender={() => <ActivityIndicator size='large'/> }
-                renderHeader={ () => <CloseModalButton/> }
-            />
+            >
+                <CachedImage 
+                    style={{width:200, height:200}}
+                    source={{uri: media}}
+                />
+            </ImageZoom>
         </Modal>
 
     );
 }
 
-export default FullScreenImage;
+export default React.memo(FullScreenImage);

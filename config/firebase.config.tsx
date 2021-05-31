@@ -16,5 +16,5 @@ export const firebaseDevConfig = {
     storageBucket: "default-bucket"
 };
 
-export const devEnvironment = DEV;
+export const devEnvironment = DEV === 'true';
 
