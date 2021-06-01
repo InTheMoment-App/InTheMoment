@@ -41,7 +41,8 @@ const PostPreview = ({route, navigation}) => {
                     <Card 
                         onPress={() => {
                             navigation.navigate('FullScreenImage', {
-                                media
+                                media,
+                                localImage: true
                             });
                         }}
                     >

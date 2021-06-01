@@ -40,7 +40,8 @@ const Leaderboard = ({navigation}) => {
             style={styles.headerStyle}
             onPress={() => {
                 navigation.navigate('FullScreenImage', {
-                    media: 'https://picsum.photos/1536/2048'
+                    media: 'https://picsum.photos/1536/2048',
+                    localImage: false
                 });
             }}
         >
@@ -58,7 +59,8 @@ const Leaderboard = ({navigation}) => {
             {...regularRowBadgeIconProps}
             onPress={() => {
                 navigation.navigate('FullScreenImage', {
-                    media: url
+                    media: url,
+                    localImage: false
                 });
             }}
         />
