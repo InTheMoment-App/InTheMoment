@@ -7,13 +7,20 @@ import * as VideoThumbnails from 'expo-video-thumbnails';
 import {
     Platform, View, TouchableOpacity, Alert,
 } from 'react-native';
+import ZoomView from 'components/ZoomView';
 import styles from './styles';
+
+
+const ZOOM_F = Platform.OS === 'ios' ? 0.005 : 0.08;
 
 const CameraScreen = () => {
     let camera: Camera;
     const navigation = useNavigation();
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+
+    const [zoom, setZoom] = useState(0);
+    const [prevPinch, setPrevPinch] = useState(0);
 
     useEffect(() => {
         (async () => {
@@ -112,67 +119,95 @@ const CameraScreen = () => {
         }
     };
 
-    return (
-        <View style={styles.container}>
-            <Camera
-                style={styles.camera}
-                type={type}
-                flashMode={flash}
-                ref={(r) => {
-                    camera = r;
-                }}
-            >
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={[styles.buttonShadow, styles.flipCamera]}
-                        onPress={() => {
-                            changeCamera();
-                        }}
-                    >
-                        <Ionicons size={32} name="md-camera-reverse" color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.buttonShadow, styles.cameraFlash]}
-                        onPress={() => {
-                            changeFlash();
-                        }}
-                    >
-                        { flashIcon() }
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.buttonShadow, styles.closeCamera]}
-                        onPress={() => {
-                            navigation.goBack();
-                        }}
-                    >
-                        <Ionicons size={32} name="close" color="white" />
-                    </TouchableOpacity>
+    const onPinchStart = () => {
+        setPrevPinch(1);
+    }
 
-                    <TouchableOpacity
-                        style={[styles.buttonShadow, styles.cameraRoll]}
-                        onPress={() => {
-                            pickImage();
-                        }}
-                    >
-                        <Ionicons size={32} name="images-sharp" color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.buttonShadow, styles.cameraShutter]}
-                        onPress={() => {
-                            takePicture();
-                        }}
-                        onLongPress={() => {
-                            takeVideo();
-                        }}
-                        onPressOut={() => {
-                            camera.stopRecording();
-                        }}
-                    >
-                        <Entypo size={90} name="circle" color="white" />
-                    </TouchableOpacity>
-                </View>
-            </Camera>
-        </View>
+    const onPinchEnd = () => {
+        setPrevPinch(1);
+    }
+
+    const onPinchProgress = (p) => {
+        const p2 = p - prevPinch
+        if(p2 > 0 && p2 > ZOOM_F) {
+            setPrevPinch(p);
+            setZoom(Math.min(zoom + ZOOM_F, 1));
+        }
+        else if (p2 < 0 && p2 < -ZOOM_F) {
+            setPrevPinch(p);
+            setZoom(Math.max(zoom - ZOOM_F, 0));
+        }
+    }
+
+    return (
+        <ZoomView
+            onPinchEnd={onPinchEnd}
+            onPinchStart={onPinchStart}
+            onPinchProgress={onPinchProgress}
+        >
+            <View style={styles.container}>
+                <Camera
+                    style={styles.camera}
+                    type={type}
+                    zoom={zoom}
+                    flashMode={flash}
+                    ref={(r) => {
+                        camera = r;
+                    }}
+                >
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={[styles.buttonShadow, styles.flipCamera]}
+                            onPress={() => {
+                                changeCamera();
+                            }}
+                        >
+                            <Ionicons size={32} name="md-camera-reverse" color="white" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.buttonShadow, styles.cameraFlash]}
+                            onPress={() => {
+                                changeFlash();
+                            }}
+                        >
+                            { flashIcon() }
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.buttonShadow, styles.closeCamera]}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        >
+                            <Ionicons size={32} name="close" color="white" />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[styles.buttonShadow, styles.cameraRoll]}
+                            onPress={() => {
+                                pickImage();
+                            }}
+                        >
+                            <Ionicons size={32} name="images-sharp" color="white" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.buttonShadow, styles.cameraShutter]}
+                            onPress={() => {
+                                takePicture();
+                            }}
+                            onLongPress={() => {
+                                takeVideo();
+                            }}
+                            onPressOut={() => {
+                                camera.stopRecording();
+                            }}
+                        >
+                            <Entypo size={90} name="circle" color="white" />
+                        </TouchableOpacity>
+                    </View>
+                </Camera>
+            </View>
+        </ZoomView>
+
     );
 }
 
