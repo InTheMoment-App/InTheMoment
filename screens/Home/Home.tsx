@@ -71,7 +71,8 @@ const Home = () => {
             style={styles.cardStyle}                         
             onPress={() => {
                 navigation.navigate('FullScreenImage', {
-                    media: item.fileurl
+                    media: item.fileurl,
+                    localImage: false
                 });
             }}
         >

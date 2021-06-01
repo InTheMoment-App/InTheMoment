@@ -1,12 +1,30 @@
 import React from 'react';
-import { Modal } from 'react-native';
+import { Image, Modal } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import CachedImage from 'react-native-expo-cached-image';
 import CloseModalButton from 'components/CloseModalButton';
 import Layout from 'constants/Layout';
 
 const FullScreenImage = ({route, navigation}) => {
-    const { media } = route.params;
+    const { media, localImage } = route.params;
+
+    const displayImage = (url: string) => {
+        if ( localImage ) {
+            return(
+                <Image 
+                    style={{width:Layout.window.width, height:200}}
+                    source={{uri: url}} 
+                />
+            );
+        }
+
+        return(
+            <CachedImage 
+                style={{width:Layout.window.width, height:200}}
+                source={{uri: url}}
+            />
+        );
+    };
 
     return (
         <Modal visible transparent>
@@ -24,10 +42,7 @@ const FullScreenImage = ({route, navigation}) => {
                     navigation.goBack();
                 }}
             >
-                <CachedImage 
-                    style={{width:Layout.window.width, height:200}}
-                    source={{uri: media}}
-                />
+                {displayImage(media)}
             </ImageZoom>
         </Modal>
 

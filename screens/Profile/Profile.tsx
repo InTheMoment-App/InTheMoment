@@ -48,7 +48,8 @@ const Profile = ({navigation}) => {
             style={styles.tileButton}
             onPress={() => {
                 navigation.navigate('FullScreenImage', {
-                    media: item.url
+                    media: item.url,
+                    localImage: false
                 });
             }}
         >
@@ -70,17 +71,12 @@ const Profile = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <UserContext.Consumer>
-                { context => ( */}
             <FlatList
                 data={posts}
-                // keyExtractor={(item) => item.uploaded_at}
                 numColumns={3}
                 renderItem={renderItem}
                 ListHeaderComponent={userInfo(user.displayName)}
             />
-            {/* )}
-            </UserContext.Consumer> */}
         </SafeAreaView>
     );
 }
