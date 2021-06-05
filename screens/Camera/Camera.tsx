@@ -1,4 +1,5 @@
 import { Camera } from 'expo-camera';
+import * as ImageManipulator from 'expo-image-manipulator';
 import React, { useState, useEffect } from 'react';
 import { Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +10,6 @@ import {
 } from 'react-native';
 import ZoomView from 'components/ZoomView';
 import styles from './styles';
-
 
 const ZOOM_F = Platform.OS === 'ios' ? 0.005 : 0.08;
 
@@ -83,8 +83,14 @@ const CameraScreen = () => {
 
     const takePicture = async () => {
         const photo: any = await camera.takePictureAsync();
+        const compressedImage = await ImageManipulator.manipulateAsync(
+            photo.uri, 
+            [ { resize: {width: 1080} } ],
+            { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+        );
+        console.log(compressedImage);
         navigation.navigate('PostPreview', {
-            media: photo.uri
+            media: compressedImage.uri
         });
     };
 

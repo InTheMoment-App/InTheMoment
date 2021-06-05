@@ -10,7 +10,6 @@ const Settings = () => {
         auth
             .signOut()
             .then(() =>
-                // console.log(' user signed out ')
                 Alert.alert('user signed out')
             ).catch( error => {
                 Alert.alert(error);
