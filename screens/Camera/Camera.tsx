@@ -88,7 +88,7 @@ const CameraScreen = () => {
             [ { resize: {width: 1080} } ],
             { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
         );
-        console.log(compressedImage);
+        
         navigation.navigate('PostPreview', {
             media: compressedImage.uri
         });
