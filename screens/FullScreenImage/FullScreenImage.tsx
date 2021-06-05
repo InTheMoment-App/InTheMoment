@@ -12,7 +12,7 @@ const FullScreenImage = ({route, navigation}) => {
         if ( localImage ) {
             return(
                 <Image 
-                    style={{width:Layout.window.width, height:200}}
+                    style={{width:Layout.window.width, height:Layout.window.height}}
                     source={{uri: url}} 
                 />
             );
@@ -20,7 +20,7 @@ const FullScreenImage = ({route, navigation}) => {
 
         return(
             <CachedImage 
-                style={{width:Layout.window.width, height:200}}
+                style={{width:Layout.window.width, height:Layout.window.height}}
                 source={{uri: url}}
             />
         );
@@ -33,7 +33,7 @@ const FullScreenImage = ({route, navigation}) => {
                 cropWidth={Layout.window.width}
                 cropHeight={Layout.window.height}
                 imageWidth={Layout.window.width}
-                imageHeight={200}
+                imageHeight={Layout.window.height}
                 style={{backgroundColor: 'black'}}
                 doubleClickInterval={500}
                 enableSwipeDown
