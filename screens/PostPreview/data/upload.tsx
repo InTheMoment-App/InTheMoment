@@ -4,6 +4,7 @@ import uuid from 'react-native-uuid';
 import React, { useState, useEffect, useContext } from 'react';
 import { Alert, SafeAreaView } from 'react-native';
 import { Text, ProgressBar } from 'react-native-paper';
+import { logging } from 'utilities/logging';
 import styles from './styles';
 
 const IMAGE_DIR = 'posts/images/';
@@ -31,7 +32,7 @@ const storeInDatabase = (title: string, url: string, uid: string) => {
             Alert.alert("Stored post information");
         })
         .catch((error) => {
-            Alert.alert("Error adding document: ", error);
+           logging.error(error);
         });
 
 };
@@ -67,14 +68,14 @@ const uploadImage = ({route, navigation}) => {
                     // https://firebase.google.com/docs/storage/web/handle-errors
                     switch (error.code) {
                         case 'storage/unauthorized':
-                            Alert.alert(`Unauthorized: ${  error.message}`);
+                            logging.error(`Unauthorized: ${  error.message}`);
                             break;
                         case 'storage/canceled':
-                            Alert.alert(`Cancelled: ${  error.message}`);
+                            logging.error(`Cancelled: ${  error.message}`);
                             break;
                         case 'storage/unknown':
                         default:
-                            Alert.alert(`Unknown: ${  error.message}`);
+                            logging.error(`Unknown: ${  error.message}`);
                             break;
                     }
                 }, 
