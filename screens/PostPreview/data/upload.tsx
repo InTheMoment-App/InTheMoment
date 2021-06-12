@@ -4,7 +4,7 @@ import uuid from 'react-native-uuid';
 import React, { useState, useEffect, useContext } from 'react';
 import { Alert, SafeAreaView } from 'react-native';
 import { Text, ProgressBar } from 'react-native-paper';
-import { logging } from 'utilities/logging';
+import logging from 'utilities/logging';
 import styles from './styles';
 
 const IMAGE_DIR = 'posts/images/';
@@ -32,7 +32,7 @@ const storeInDatabase = (title: string, url: string, uid: string) => {
             Alert.alert("Stored post information");
         })
         .catch((error) => {
-           logging.error(error);
+            logging.error(error);
         });
 
 };

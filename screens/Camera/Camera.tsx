@@ -9,8 +9,8 @@ import {
     Platform, View, TouchableOpacity, Alert,
 } from 'react-native';
 import ZoomView from 'components/ZoomView';
+import logging from 'utilities/logging';
 import styles from './styles';
-import { logging } from 'utilities/logging';
 
 const ZOOM_F = Platform.OS === 'ios' ? 0.005 : 0.08;
 

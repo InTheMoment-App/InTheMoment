@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, SafeAreaView, ScrollView } from 'react-native';
 import { List } from 'react-native-paper';
 import { auth } from 'utilities/firebase';
-import { logging } from 'utilities/logging';
+import logging from 'utilities/logging';
 import styles from './styles';
 
 const Settings = () => {
@@ -13,7 +13,7 @@ const Settings = () => {
             .then(() =>
                 Alert.alert('user signed out')
             ).catch( error => {
-                logging.error("Error signing out: " + error);
+                logging.error(`Error signing out: ${  error}`);
             });
     };
 

@@ -1,6 +1,6 @@
 import { auth } from 'utilities/firebase';
 import { Alert } from 'react-native';
-import { logging } from 'utilities/logging';
+import logging from 'utilities/logging';
 
 export const create = async (email: string, password: string) : Promise<boolean> => {
     try {
@@ -16,7 +16,7 @@ export const create = async (email: string, password: string) : Promise<boolean>
             Alert.alert('That email address is invalid!');
         }
 
-        logging.error("Error creating account: " + error );
+        logging.error(`Error creating account: ${  error}` );
 
         return false;
     }
@@ -36,7 +36,7 @@ export const login = async (email: string, password: string) : Promise<boolean> 
             Alert.alert('That email address is invalid!');
         }
 
-        logging.error("Error logging in: " + error );
+        logging.error(`Error logging in: ${  error}` );
 
         return false;
     }
@@ -56,7 +56,7 @@ export const passwordReset = async (email: string) : Promise<boolean> => {
             Alert.alert('That email address is invalid!');
         }
 
-        logging.error("Error sending password reset: " + error );
+        logging.error(`Error sending password reset: ${  error}` );
 
         return false;
     }
