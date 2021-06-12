@@ -9,6 +9,7 @@ import {
     Platform, View, TouchableOpacity, Alert,
 } from 'react-native';
 import ZoomView from 'components/ZoomView';
+import logging from 'utilities/logging';
 import styles from './styles';
 
 const ZOOM_F = Platform.OS === 'ios' ? 0.005 : 0.08;
@@ -104,8 +105,8 @@ const CameraScreen = () => {
             navigation.navigate('PostPreview', {
                 media: uri
             });
-        } catch(e) {
-            // console.warn(e);
+        } catch(error) {
+            logging.error(error)
         }
     };
 
