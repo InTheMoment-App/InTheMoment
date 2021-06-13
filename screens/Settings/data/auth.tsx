@@ -1,12 +1,12 @@
 import { firebase, auth } from 'utilities/firebase';
 import logging from 'utilities/logging';
 
-export const deleteAccount = (password: string) => {
+export const deleteAccount = (password: string) : boolean => {
     const user = auth.currentUser;
 
-    if (!user) return;
+    if (!user) return false;
 
-    var credentials = firebase.auth.EmailAuthProvider.credential(
+    const credentials = firebase.auth.EmailAuthProvider.credential(
         user.email,
         password
     );

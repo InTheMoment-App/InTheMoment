@@ -6,10 +6,9 @@ import {
     ScrollView,
     View
 } from 'react-native';
-import { Button, Dialog, Paragraph, Portal } from 'react-native-paper';
+import { Button, Dialog, List, Paragraph, Portal } from 'react-native-paper';
 import { TextField } from 'react-native-ui-lib';
 import { deleteAccount, signOut } from './data/auth';
-import { List } from 'react-native-paper';
 import styles from './styles';
 
 const Settings = () => {
@@ -29,35 +28,33 @@ const Settings = () => {
         }
     };
 
-    const confirmDeleteAccount = () => {
-        return(
-            <Portal>
-                <Dialog visible={delVisible} onDismiss={hideDelDialog}>
-                    <Dialog.Title>Delete Account</Dialog.Title>
-                    <Dialog.Content>
-                        <TouchableWithoutFeedback
-                            onPress={ () => Keyboard.dismiss()}
-                            accessible={false}
-                        >
-                            <View>
-                                <Paragraph>Please re-enter your password to delete your account.</Paragraph>
-                                <TextField
-                                    maxLength={64}
-                                    onChangeText={ pass => setPassword(pass)}
-                                    error={passwordError}
-                                    secureTextEntry
-                                />
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button onPress={hideDelDialog}>Cancel</Button>
-                        <Button onPress={performAccountDelete}>Delete</Button>
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
-        );
-    };
+    const confirmDeleteAccount = () => (
+        <Portal>
+            <Dialog visible={delVisible} onDismiss={hideDelDialog}>
+                <Dialog.Title>Delete Account</Dialog.Title>
+                <Dialog.Content>
+                    <TouchableWithoutFeedback
+                        onPress={ () => Keyboard.dismiss()}
+                        accessible={false}
+                    >
+                        <View>
+                            <Paragraph>Please re-enter your password to delete your account.</Paragraph>
+                            <TextField
+                                maxLength={64}
+                                onChangeText={ pass => setPassword(pass)}
+                                error={passwordError}
+                                secureTextEntry
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button onPress={hideDelDialog}>Cancel</Button>
+                    <Button onPress={performAccountDelete}>Delete</Button>
+                </Dialog.Actions>
+            </Dialog>
+        </Portal>
+    );
 
     return (
         <SafeAreaView style={styles.container}>
