@@ -1,24 +1,64 @@
-import React from 'react';
-import { Alert, SafeAreaView, ScrollView } from 'react-native';
-import { List } from 'react-native-paper';
-import { auth } from 'utilities/firebase';
-import logging from 'utilities/logging';
+import React, { useState } from 'react';
+import { 
+    Keyboard, 
+    TouchableWithoutFeedback, 
+    SafeAreaView, 
+    ScrollView,
+    View
+} from 'react-native';
+import { Button, Dialog, List, Paragraph, Portal } from 'react-native-paper';
+import { TextField } from 'react-native-ui-lib';
+import { deleteAccount, signOut } from './data/auth';
 import styles from './styles';
 
 const Settings = () => {
 
-    const signOut = () => {
-        auth
-            .signOut()
-            .then(() =>
-                Alert.alert('user signed out')
-            ).catch( error => {
-                logging.error(`Error signing out: ${  error}`);
-            });
+    const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const [delVisible, setDelVisible] = useState(false);
+
+    const showDelDialog = () => setDelVisible(true);
+    const hideDelDialog = () => setDelVisible(false);
+
+
+    const performAccountDelete = () => {
+        if (!deleteAccount(password )) {
+            setPasswordError("Failed to delete account, please try again.");
+        }
     };
+
+    const confirmDeleteAccount = () => (
+        <Portal>
+            <Dialog visible={delVisible} onDismiss={hideDelDialog}>
+                <Dialog.Title>Delete Account</Dialog.Title>
+                <Dialog.Content>
+                    <TouchableWithoutFeedback
+                        onPress={ () => Keyboard.dismiss()}
+                        accessible={false}
+                    >
+                        <View>
+                            <Paragraph>Please re-enter your password to delete your account.</Paragraph>
+                            <TextField
+                                maxLength={64}
+                                onChangeText={ pass => setPassword(pass)}
+                                error={passwordError}
+                                secureTextEntry
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button onPress={hideDelDialog}>Cancel</Button>
+                    <Button onPress={performAccountDelete}>Delete</Button>
+                </Dialog.Actions>
+            </Dialog>
+        </Portal>
+    );
 
     return (
         <SafeAreaView style={styles.container}>
+            { confirmDeleteAccount() }
             <ScrollView style={styles.settingsContainer}>
                 <List.Section>
                     <List.Item
@@ -54,6 +94,7 @@ const Settings = () => {
                         title="Delete Account"
                         description="Permanently delete your account"
                         left={(props) => <List.Icon {...props} icon="delete" />}
+                        onPress={showDelDialog}
                     />
                 </List.Section>
             </ScrollView>
